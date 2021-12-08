@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 
-function RegisterForm(props) {
-	const nameRef = useRef();
+function UpdateUserForm(props) {
 	const emailRef = useRef();
 	const passwordRef = useRef();
 	const secretRef = useRef();
@@ -13,7 +12,6 @@ function RegisterForm(props) {
 	function submitHandler(event) {
 		event.preventDefault();
 
-		const enteredName = nameRef.current.value;
 		const enteredEmail = emailRef.current.value;
 		const enteredPassword = passwordRef.current.value;
 		const enteredSecret = secretRef.current.value;
@@ -23,7 +21,6 @@ function RegisterForm(props) {
 		const enteredEvent = eventsRef.current.value;
 
 		const userData = {
-			name: enteredName,
 			email: enteredEmail,
 			password: enteredPassword,
 			secret: enteredSecret,
@@ -33,19 +30,10 @@ function RegisterForm(props) {
 			events: enteredEvent,
 		};
 
-		props.registerUser(userData);
+		props.UpdateUser(userData);
 	}
 	return (
 		<form onSubmit={submitHandler}>
-			<label className="label" htmlFor="names">
-				Names
-			</label>
-			<div className="field-group">
-				<span className="fa fa-user" aria-hidden="true"></span>
-				<div className="wthree-field">
-					<input name="name" id="hobbies" type="text" placeholder="Names" ref={nameRef} />
-				</div>
-			</div>
 			<label className="label" htmlFor="username">
 				email
 			</label>
@@ -156,7 +144,7 @@ function RegisterForm(props) {
 			</div>
 			<div className="wthree-field">
 				<button id="submitButton" type="submit" className="btn">
-					Register
+					Update
 				</button>
 			</div>
 
@@ -167,4 +155,4 @@ function RegisterForm(props) {
 	);
 }
 
-export default RegisterForm;
+export default UpdateUserForm;

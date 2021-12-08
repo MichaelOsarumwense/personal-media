@@ -9,17 +9,14 @@ function LoginPage() {
 
 	let loginHandler = async (data) => {
 		try {
-			const generateToken = await fetch(
-				`https://backend-personal-media.herokuapp.com/users/login`,
-				{
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			);
+			const generateToken = await fetch(`http://localhost:3001/users/login`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
 
 			if (!generateToken.ok) {
 				return generateToken.text().then((result) => Promise.reject(result));

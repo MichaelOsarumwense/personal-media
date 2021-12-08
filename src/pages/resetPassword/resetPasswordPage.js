@@ -9,36 +9,23 @@ function ResetPasswordPage() {
 
 	let resetPasswordHandler = async (data) => {
 		try {
-			const generateToken = await fetch(
-				`https://backend-personal-media.herokuapp.com/users`,
-				{
-					method: 'POST',
-					headers: {
-						Accept: 'application/json',
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			);
-
-			if (!generateToken.ok) {
-				return generateToken.text().then((result) => Promise.reject(result));
-			} else {
-				const jsonResponse = await generateToken.json();
-				console.log('Success:', jsonResponse);
-				window.localStorage.setItem('access_token', jsonResponse.token);
-			}
-
-			const authenticateUser = await fetch('users/me', {
-				headers: { Authorization: localStorage.getItem('access_token') },
+			const passwordReset = await fetch(`http://localhost:3001/users/reset-password`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
 			});
-			if (authenticateUser.error) {
-				console.error('Error:', authenticateUser.error);
+
+			if (!passwordReset.ok) {
+				return passwordReset.text().then((result) => Promise.reject(result));
 			} else {
-				history.replace('/register');
+				const jsonResponse = await passwordReset.json();
+				console.log('Success:', jsonResponse);
+				history.replace('/');
 			}
 		} catch (e) {
-			console.log(e);
+			return Promise.reject(e);
 		}
 	};
 
