@@ -4,13 +4,15 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../../components/layout/formLayout';
 import UpdateUserForm from '../../components/updateUser/updateUserForm';
 
+const url = process.env.REACT_APP_URL;
+
 function UpdateUserPage() {
 	const history = useHistory();
 
 	let updateUserHandler = async (data) => {
 		const token = window.localStorage.getItem('access_token');
 		try {
-			const updateUser = await fetch(`http://localhost:3001/users/me`, {
+			const updateUser = await fetch(`${url}/users/me`, {
 				method: 'PATCH',
 				headers: {
 					Accept: 'application/json',

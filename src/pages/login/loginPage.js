@@ -4,12 +4,15 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../../components/layout/formLayout';
 import LoginForm from '../../components/login/loginForm';
 
+const url = process.env.REACT_APP_URL;
+
 function LoginPage() {
 	const history = useHistory();
+	console.log(url);
 
 	let loginHandler = async (data) => {
 		try {
-			const generateToken = await fetch(`http://localhost:3001/users/login`, {
+			const generateToken = await fetch(`${url}/users/login`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

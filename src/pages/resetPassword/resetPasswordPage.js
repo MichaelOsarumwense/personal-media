@@ -4,12 +4,14 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../../components/layout/formLayout';
 import ResetPasswordForm from '../../components/resetPassword/resetPasswordForm';
 
+const url = process.env.REACT_APP_URL;
+
 function ResetPasswordPage() {
 	const history = useHistory();
 
 	let resetPasswordHandler = async (data) => {
 		try {
-			const passwordReset = await fetch(`http://localhost:3001/users/reset-password`, {
+			const passwordReset = await fetch(`${url}/users/reset-password`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
