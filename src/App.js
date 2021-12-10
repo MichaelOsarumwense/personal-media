@@ -1,9 +1,9 @@
 import { Route, Switch } from 'react-router-dom';
-import LoginPage from './pages/login/loginPage';
-import HomePage from './pages/home/home';
-import RegisterPage from './pages/register/registerPage';
-import ResetPasswordPage from './pages/resetPassword/resetPasswordPage';
-import UpdateUserPage from './pages/updateUser/updateUserPage';
+import LoginPage from './pages/loginPage';
+import HomePage from './pages/home';
+import RegisterPage from './pages/registerPage';
+import ResetPasswordPage from './pages/resetPasswordPage';
+import UpdateUserPage from './pages/updateUserPage';
 
 function App() {
 	return (

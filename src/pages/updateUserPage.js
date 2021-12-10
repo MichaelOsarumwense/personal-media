@@ -1,17 +1,21 @@
 // eslint-disable-next-line
 
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../../components/layout/formLayout';
-import UpdateUserForm from '../../components/updateUser/updateUserForm';
+import LoginLayout from '../components/layout/formLayout';
+import UpdateUserForm from '../components/updateUser/updateUserForm';
+import LoaderComponent from '../components/loader/loader';
 
 const url = process.env.REACT_APP_URL;
 
 function UpdateUserPage() {
+	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const history = useHistory();
 
 	let updateUserHandler = async (data) => {
 		const token = window.localStorage.getItem('access_token');
 		try {
+			setSpinnerLoading(true);
 			const updateUser = await fetch(`${url}/users/me`, {
 				method: 'PATCH',
 				headers: {
@@ -23,10 +27,10 @@ function UpdateUserPage() {
 			});
 
 			if (!updateUser.ok) {
+				setSpinnerLoading(false);
 				return updateUser.text().then((result) => Promise.reject(result));
 			} else {
-				const jsonResponse = await updateUser.json();
-				console.log('Success:', jsonResponse);
+				setSpinnerLoading(false);
 				history.replace('/');
 			}
 		} catch (e) {
@@ -39,6 +43,7 @@ function UpdateUserPage() {
 			<LoginLayout linkText={'Home'} linkRoute={'/home'}>
 				<div className="content-w3ls">
 					<div className="content-bottom">
+						<LoaderComponent spinnerLoading={spinnerLoading} />
 						<UpdateUserForm UpdateUser={updateUserHandler} />
 					</div>
 				</div>

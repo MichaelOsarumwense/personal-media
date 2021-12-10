@@ -8,6 +8,7 @@ function UpdateUserForm(props) {
 	const birthdayRef = useRef();
 	const hobbiesRef = useRef();
 	const eventsRef = useRef();
+	const nameRef = useRef();
 
 	function submitHandler(event) {
 		event.preventDefault();
@@ -19,6 +20,7 @@ function UpdateUserForm(props) {
 		const enteredBirthday = birthdayRef.current.value;
 		const enteredHobby = hobbiesRef.current.value;
 		const enteredEvent = eventsRef.current.value;
+		const enteredName = nameRef.current.value;
 
 		const userData = {
 			email: enteredEmail,
@@ -28,12 +30,22 @@ function UpdateUserForm(props) {
 			dob: enteredBirthday,
 			hobbies: enteredHobby,
 			events: enteredEvent,
+			name: enteredName,
 		};
 
 		props.UpdateUser(userData);
 	}
 	return (
 		<form onSubmit={submitHandler}>
+			<label className="label" htmlFor="names">
+				Names
+			</label>
+			<div className="field-group">
+				<span className="fa fa-user" aria-hidden="true"></span>
+				<div className="wthree-field">
+					<input name="name" id="hobbies" type="text" placeholder="Names" ref={nameRef} />
+				</div>
+			</div>
 			<label className="label" htmlFor="username">
 				email
 			</label>

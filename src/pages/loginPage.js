@@ -2,9 +2,9 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../../components/layout/formLayout';
-import LoaderComponent from '../../components/loader/loader';
-import LoginForm from '../../components/login/loginForm';
+import LoginLayout from '../components/layout/formLayout';
+import LoaderComponent from '../components/loader/loader';
+import LoginForm from '../components/login/loginForm';
 
 const url = process.env.REACT_APP_URL;
 
@@ -29,7 +29,6 @@ function LoginPage() {
 				return generateToken.text().then((result) => Promise.reject(result));
 			} else {
 				const jsonResponse = await generateToken.json();
-				console.log('Success:', jsonResponse);
 				window.localStorage.setItem('access_token', jsonResponse.token);
 			}
 
@@ -38,7 +37,6 @@ function LoginPage() {
 			});
 
 			if (authenticateUser.error) {
-				console.error('Error:', authenticateUser.error);
 				setSpinnerLoading(false);
 			} else {
 				setSpinnerLoading(false);
