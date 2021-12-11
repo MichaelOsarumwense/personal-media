@@ -41,7 +41,8 @@ function UpdateUserPage() {
 				history.replace('/');
 			}
 		} catch (e) {
-			return Promise.reject(e);
+			setSpinnerLoading(false);
+			console.log(e);
 		}
 	};
 

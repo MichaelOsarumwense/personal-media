@@ -43,6 +43,7 @@ function LoginPage() {
 				history.replace('/');
 			}
 		} catch (e) {
+			setSpinnerLoading(false);
 			console.log(e);
 		}
 	};

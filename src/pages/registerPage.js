@@ -31,6 +31,7 @@ function RegisterPage() {
 				history.replace('/login');
 			}
 		} catch (e) {
+			setSpinnerLoading(false);
 			console.log(e);
 		}
 	};

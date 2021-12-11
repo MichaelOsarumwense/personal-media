@@ -31,7 +31,8 @@ function ResetPasswordPage() {
 				history.replace('/login');
 			}
 		} catch (e) {
-			return Promise.reject(e);
+			setSpinnerLoading(false);
+			console.log(e);
 		}
 	};
 
