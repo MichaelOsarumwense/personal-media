@@ -14,7 +14,7 @@ function Posts() {
 								<p className="w3-opacity">
 									<label htmlFor="postText">What's on your mind now?</label>
 								</p>
-								<p contenteditable="false" className=" w3-padding">
+								<p contentEditable="false" className=" w3-padding">
 									<textarea
 										id="postText"
 										name="post"
@@ -51,7 +51,7 @@ function Posts() {
 					<i className="fa fa-edit"></i> Edit
 				</Link>
 				<Link
-					onclick="document.getElementById('id01').style.display='block'"
+					onClick="document.getElementById('id01').style.display='block'"
 					id="delete"
 					className="w3-button w3-theme-d1 w3-margin-bottom"
 				>
@@ -63,7 +63,7 @@ function Posts() {
 					<div id="modal" className="w3-modal-content">
 						<div className="w3-container">
 							<span
-								onclick="document.getElementById('id01').style.display='none'"
+								onClick="document.getElementById('id01').style.display='none'"
 								className="w3-button w3-display-topright"
 							>
 								&times;
