@@ -28,7 +28,7 @@ function ResetPasswordPage() {
 				return passwordReset.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
-				history.replace('/');
+				history.replace('/login');
 			}
 		} catch (e) {
 			return Promise.reject(e);
@@ -37,7 +37,7 @@ function ResetPasswordPage() {
 
 	return (
 		<div>
-			<LoginLayout linkText={'Login'} linkRoute={'/'}>
+			<LoginLayout linkText={'Login'} linkRoute={'/login'}>
 				<div className="content-w3ls">
 					<div className="content-bottom">
 						<ResetPasswordForm resetPassword={resetPasswordHandler} />

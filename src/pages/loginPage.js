@@ -40,7 +40,7 @@ function LoginPage() {
 				setSpinnerLoading(false);
 			} else {
 				setSpinnerLoading(false);
-				history.replace('/home');
+				history.replace('/');
 			}
 		} catch (e) {
 			console.log(e);

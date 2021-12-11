@@ -4,25 +4,16 @@ import HomePage from './pages/home';
 import RegisterPage from './pages/registerPage';
 import ResetPasswordPage from './pages/resetPasswordPage';
 import UpdateUserPage from './pages/updateUserPage';
+import ProtectedRoute from './components/protectedRoute/protectedRoute';
 
 function App() {
 	return (
 		<Switch>
-			<Route path="/" exact>
-				<LoginPage />
-			</Route>
-			<Route path="/home">
-				<HomePage />
-			</Route>
-			<Route path="/register">
-				<RegisterPage />
-			</Route>
-			<Route path="/reset-password">
-				<ResetPasswordPage />
-			</Route>
-			<Route path="/update-user">
-				<UpdateUserPage />
-			</Route>
+			<ProtectedRoute path="/" component={HomePage} exact />
+			<Route path="/login" component={LoginPage} />
+			<Route path="/register" component={RegisterPage} />
+			<Route path="/reset-password" component={ResetPasswordPage} />
+			<ProtectedRoute path="/update-user" component={UpdateUserPage} />
 		</Switch>
 	);
 }

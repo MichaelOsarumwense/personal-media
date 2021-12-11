@@ -33,7 +33,7 @@ function ResetPasswordForm(props) {
 						name="email"
 						id="email"
 						type="email"
-						placeholder="username"
+						placeholder="email"
 						ref={usernameRef}
 						required
 					/>
