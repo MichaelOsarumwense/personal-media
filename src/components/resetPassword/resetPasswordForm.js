@@ -59,7 +59,7 @@ function ResetPasswordForm(props) {
 				Secret
 			</label>
 			<div className="field-group required">
-				<span className="fa fa-envelope" aria-hidden="true" />
+				<span className="fas fa-mask" aria-hidden="true" />
 				<div className="wthree-field">
 					<input
 						name="mask"
@@ -76,9 +76,6 @@ function ResetPasswordForm(props) {
 					Reset
 				</button>
 			</div>
-			<ul className="list-login-bottom">
-				<li className="clearfix" />
-			</ul>
 		</form>
 	);
 }

@@ -43,14 +43,14 @@ function RegisterForm(props) {
 			<div className="field-group">
 				<span className="fa fa-user" aria-hidden="true"></span>
 				<div className="wthree-field">
-					<input name="name" id="hobbies" type="text" placeholder="Names" ref={nameRef} />
+					<input name="name" id="name" type="text" placeholder="Names" ref={nameRef} />
 				</div>
 			</div>
 			<label className="label" htmlFor="username">
 				email
 			</label>
 			<div className="field-group required">
-				<span className="fa fa-email" aria-hidden="true" />
+				<span className="fa fa-envelope" aria-hidden="true" />
 				<div className="wthree-field">
 					<input
 						name="email"
@@ -82,7 +82,7 @@ function RegisterForm(props) {
 				Secret
 			</label>
 			<div className="field-group required">
-				<span className="fa fa-envelope" aria-hidden="true" />
+				<span className="fas fa-mask" aria-hidden="true" />
 				<div className="wthree-field">
 					<input
 						name="mask"
@@ -113,7 +113,7 @@ function RegisterForm(props) {
 				Birthday
 			</label>
 			<div className="field-group">
-				<span className="fa fa-cake" aria-hidden="true"></span>
+				<span className="fa fa-birthday-cake" aria-hidden="true"></span>
 				<div className="wthree-field">
 					<input
 						name="dob"
@@ -128,7 +128,7 @@ function RegisterForm(props) {
 				Hobbies
 			</label>
 			<div className="field-group">
-				<span className="fa fa-skiing" aria-hidden="true"></span>
+				<span className="fas fa-skiing" aria-hidden="true"></span>
 				<div className="wthree-field">
 					<input
 						name="hobbies"
