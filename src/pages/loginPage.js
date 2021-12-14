@@ -41,6 +41,7 @@ function LoginPage() {
 			} else {
 				setSpinnerLoading(false);
 				history.replace('/');
+				window.location.reload();
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
