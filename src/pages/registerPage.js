@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../components/layout/formLayout';
+import LoginLayout from '../components/layout/loginLayout';
 import RegisterForm from '../components/register/registerForm';
 import LoaderComponent from '../components/loader/loader';
 

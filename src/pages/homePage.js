@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 
 import HomePageLayout from '../components/layout/homeLayout';
-import { useHistory } from 'react-router-dom';
 import LoaderComponent from '../components/loader/loader';
 import Posts from '../components/post/post';
 import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
+import { getToken, pageReload } from '../utils/windowsHelper';
 
 const url = process.env.REACT_APP_URL;
-const token = window.localStorage.getItem('access_token');
 
 function HomePage(props) {
-	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 	const [loadedPosts, setLoadedPosts] = useState([]);
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
@@ -23,7 +21,7 @@ function HomePage(props) {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					Authorization: token,
+					Authorization: getToken(),
 				},
 				body: JSON.stringify(data),
 			});
@@ -33,7 +31,7 @@ function HomePage(props) {
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
-				window.location.reload();
+				pageReload();
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
@@ -48,7 +46,7 @@ function HomePage(props) {
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
-				Authorization: token,
+				Authorization: getToken(),
 			},
 		})
 			.then((response) => {

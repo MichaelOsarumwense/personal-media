@@ -2,10 +2,11 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../components/layout/formLayout';
+import LoginLayout from '../components/layout/loginLayout';
 import UpdateUserForm from '../components/updateUser/updateUserForm';
 import LoaderComponent from '../components/loader/loader';
 import { Modal, Button } from 'react-bootstrap';
+import { getToken, deleteToken } from '../utils/windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
@@ -17,8 +18,7 @@ function UpdateUserPage() {
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
-	const token = window.localStorage.getItem('access_token');
-	const removeToken = () => window.localStorage.removeItem('access_token');
+	const token = getToken();
 
 	let updateUserHandler = async (data) => {
 		try {
@@ -46,7 +46,7 @@ function UpdateUserPage() {
 		}
 	};
 
-	let deleteHandler = async (data) => {
+	let deleteHandler = async () => {
 		const changeText = (text) => setButtonText(text);
 		setSpinnerLoading(true);
 		const deleteUser = await fetch(`${url}/users/me`, {
@@ -63,9 +63,9 @@ function UpdateUserPage() {
 			changeText('failed');
 			return Promise.reject('Failed to delete user');
 		} else {
-			removeToken();
 			setSpinnerLoading(false);
 			history.replace('/login');
+			deleteToken('access_token');
 		}
 	};
 

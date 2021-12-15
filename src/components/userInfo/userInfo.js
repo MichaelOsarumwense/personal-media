@@ -1,10 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import getUserHandler from '../../utils/getUserHandler';
 import avatar from '../layout/images/01.png';
 
 export function UserInfoLeftColumn() {
+	const [userData, setUserData] = useState({});
+
+	useEffect(() => {
+		getUserHandler(setUserData);
+	}, []);
+
 	return (
 		<div className="w3-col m3 sticky">
-			{/* <!-- Profile --> */}
 			<div className="w3-card w3-round w3-white">
 				<div className="w3-container">
 					<Link id="userProfile" to="/update-user">
@@ -18,15 +25,15 @@ export function UserInfoLeftColumn() {
 					<hr />
 					<p id="profileName">
 						<i className="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>
-						{/* {{active_user.username}} */}
+						{userData.name}
 					</p>
 					<p id="profileAddress">
 						<i className="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-						{/* {{active_user.address}} */}
+						{userData.address}
 					</p>
 					<p id="profileDob">
 						<i className="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>
-						{/* {{active_user.dob}} */}
+						{userData.dob}
 					</p>
 				</div>
 			</div>
@@ -36,9 +43,7 @@ export function UserInfoLeftColumn() {
 				<div className="w3-container">
 					<p>Hobbies:</p>
 					<p id="profileHobbies">
-						<span className="w3-tag w3-small w3-theme-d5">
-							{/* {{active_user.hobbies}} */}
-						</span>
+						<span className="w3-tag w3-small w3-theme-d5">{userData.hobbies}</span>
 					</p>
 				</div>
 			</div>
@@ -49,12 +54,17 @@ export function UserInfoLeftColumn() {
 }
 
 export function UserInfoRightColumn() {
+	const [userData, setUserData] = useState({});
+
+	useEffect(() => {
+		getUserHandler(setUserData);
+	}, []);
 	return (
 		<div className="w3-col m2 sticky">
 			<div className="w3-card w3-round w3-white w3-center">
 				<div className="w3-container">
 					<p>Events:</p>
-					<p id="profileEvents">{/* {{active_user.events}} */}</p>
+					<p id="profileEvents">{userData.events}</p>
 				</div>
 			</div>
 			<br />

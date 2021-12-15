@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../components/layout/formLayout';
+import LoginLayout from '../components/layout/loginLayout';
 import ResetPasswordForm from '../components/resetPassword/resetPasswordForm';
 import React, { useState } from 'react';
 import LoaderComponent from '../components/loader/loader';

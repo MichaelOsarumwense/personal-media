@@ -11,15 +11,12 @@ function PostItem(props) {
 			<br />
 			<hr className="w3-clear" />
 			<p id="newPost">{props.description}</p>
-			<Link
-				id="editButton"
-				to="{{ url_for('edit_post', post_id=post._id, user=post.user_id) }}"
-				className="w3-button w3-theme-d1 w3-margin-bottom"
-			>
+			<Link id="editButton" to="" className="w3-button w3-theme-d1 w3-margin-bottom">
 				<i className="fa fa-edit"></i> Edit
 			</Link>
 			<Link
-				onClick="document.getElementById('id01').style.display='block'"
+				// onClick={}
+				to=""
 				id="delete"
 				className="w3-button w3-theme-d1 w3-margin-bottom"
 			>

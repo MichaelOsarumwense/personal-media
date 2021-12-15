@@ -25,7 +25,7 @@ function Posts(props) {
 								<p className="w3-opacity">
 									<label htmlFor="postText">What's on your mind now?</label>
 								</p>
-								<p contentEditable="false" className=" w3-padding">
+								<p className=" w3-padding">
 									<textarea
 										id="postText"
 										name="post"

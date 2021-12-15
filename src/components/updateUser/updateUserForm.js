@@ -1,6 +1,13 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import getUserHandler from '../../utils/getUserHandler';
 
 function UpdateUserForm(props) {
+	const [userData, setUserData] = useState({});
+
+	useEffect(() => {
+		getUserHandler(setUserData);
+	}, []);
+
 	const emailRef = useRef();
 	const passwordRef = useRef();
 	const secretRef = useRef();
@@ -14,7 +21,6 @@ function UpdateUserForm(props) {
 		event.preventDefault();
 
 		const enteredEmail = emailRef.current.value;
-		const enteredPassword = passwordRef.current.value;
 		const enteredSecret = secretRef.current.value;
 		const enteredAddress = addressRef.current.value;
 		const enteredBirthday = birthdayRef.current.value;
@@ -24,7 +30,6 @@ function UpdateUserForm(props) {
 
 		const userData = {
 			email: enteredEmail,
-			password: enteredPassword,
 			secret: enteredSecret,
 			address: enteredAddress,
 			dob: enteredBirthday,
@@ -43,14 +48,21 @@ function UpdateUserForm(props) {
 			<div className="field-group">
 				<span className="fa fa-user" aria-hidden="true"></span>
 				<div className="wthree-field">
-					<input name="name" id="hobbies" type="text" placeholder="Names" ref={nameRef} />
+					<input
+						defaultValue={userData.name}
+						name="name"
+						id="name"
+						type="text"
+						placeholder="Names"
+						ref={nameRef}
+					/>
 				</div>
 			</div>
 			<label className="label" htmlFor="username">
 				email
 			</label>
 			<div className="field-group required">
-				<span className="fa fa-email" aria-hidden="true" />
+				<span className="fas fa-envelope" aria-hidden="true" />
 				<div className="wthree-field">
 					<input
 						name="email"
@@ -58,22 +70,7 @@ function UpdateUserForm(props) {
 						type="email"
 						placeholder="email"
 						ref={emailRef}
-						required
-					/>
-				</div>
-			</div>
-			<label className="label" htmlFor="password">
-				password
-			</label>
-			<div className="field-group required">
-				<span className="fa fa-lock" aria-hidden="true" />
-				<div className="wthree-field">
-					<input
-						name="password"
-						id="password"
-						type="Password"
-						placeholder="password"
-						ref={passwordRef}
+						defaultValue={userData.email}
 						required
 					/>
 				</div>
@@ -82,7 +79,7 @@ function UpdateUserForm(props) {
 				Secret
 			</label>
 			<div className="field-group required">
-				<span className="fa fa-envelope" aria-hidden="true" />
+				<span className="fas fa-mask" aria-hidden="true" />
 				<div className="wthree-field">
 					<input
 						name="mask"
@@ -90,6 +87,7 @@ function UpdateUserForm(props) {
 						type="text"
 						placeholder="Security Word"
 						ref={secretRef}
+						defaultValue={userData.secret}
 						required
 					/>
 				</div>
@@ -105,6 +103,7 @@ function UpdateUserForm(props) {
 						id="address"
 						type="text"
 						placeholder="London, UK"
+						defaultValue={userData.address}
 						ref={addressRef}
 					/>
 				</div>
@@ -113,13 +112,14 @@ function UpdateUserForm(props) {
 				Birthday
 			</label>
 			<div className="field-group">
-				<span className="fa fa-cake" aria-hidden="true"></span>
+				<span className="fa fa-birthday-cake" aria-hidden="true"></span>
 				<div className="wthree-field">
 					<input
 						name="dob"
 						id="dob"
 						type="text"
 						placeholder="April 1, 1993"
+						defaultValue={userData.dob}
 						ref={birthdayRef}
 					/>
 				</div>
@@ -128,13 +128,14 @@ function UpdateUserForm(props) {
 				Hobbies
 			</label>
 			<div className="field-group">
-				<span className="fa fa-skiing" aria-hidden="true"></span>
+				<span className="fas fa-skiing" aria-hidden="true"></span>
 				<div className="wthree-field">
 					<input
 						name="hobbies"
 						id="hobbies"
 						type="text"
 						placeholder="Hobbies"
+						defaultValue={userData.hobbies}
 						ref={hobbiesRef}
 					/>
 				</div>
@@ -150,6 +151,7 @@ function UpdateUserForm(props) {
 						id="events"
 						type="text"
 						placeholder="Upcoming Event"
+						defaultValue={userData.events}
 						ref={eventsRef}
 					/>
 				</div>

@@ -2,9 +2,10 @@
 
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LoginLayout from '../components/layout/formLayout';
+import LoginLayout from '../components/layout/loginLayout';
 import LoaderComponent from '../components/loader/loader';
 import LoginForm from '../components/login/loginForm';
+import { setToken, pageReload } from '../utils/windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
@@ -29,7 +30,7 @@ function LoginPage() {
 				return generateToken.text().then((result) => Promise.reject(result));
 			} else {
 				const jsonResponse = await generateToken.json();
-				window.localStorage.setItem('access_token', jsonResponse.token);
+				setToken('access_token', jsonResponse.token);
 			}
 
 			const authenticateUser = await fetch('users/me', {
@@ -39,9 +40,9 @@ function LoginPage() {
 			if (authenticateUser.error) {
 				setSpinnerLoading(false);
 			} else {
-				setSpinnerLoading(false);
 				history.replace('/');
-				window.location.reload();
+				pageReload();
+				setSpinnerLoading(false);
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
