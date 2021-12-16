@@ -8,9 +8,9 @@ function PostLists(props) {
 					owner={post.owner}
 					createdAt={post.createdAt}
 					description={post.description}
-					index={post.id}
 					postId={post._id}
 					key={post.id}
+					name={post.name}
 				/>
 			))}
 			{props.children}

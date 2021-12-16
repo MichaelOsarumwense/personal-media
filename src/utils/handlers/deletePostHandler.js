@@ -2,7 +2,7 @@ import { getToken, pageReload } from '../windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
-async function deletePostHandler(id, setSpinnerLoading) {
+async function deletePostHandler(id, setSpinnerLoading, handleClose) {
 	try {
 		setSpinnerLoading(true);
 		const deleteUser = await fetch(`${url}/posts/${id}`, {
@@ -17,6 +17,7 @@ async function deletePostHandler(id, setSpinnerLoading) {
 			setSpinnerLoading(false);
 			return deleteUser.text().then((result) => Promise.reject(result));
 		} else {
+			handleClose();
 			setSpinnerLoading(false);
 			pageReload();
 		}

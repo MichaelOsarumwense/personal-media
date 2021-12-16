@@ -5,8 +5,9 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../components/layout/loginLayout';
 import UpdateUserForm from '../components/updateUser/updateUserForm';
 import LoaderComponent from '../components/loader/loader';
-import { Modal, Button } from 'react-bootstrap';
+
 import { getToken, deleteToken } from '../utils/windowsHelper';
+import Modals from '../components/modal/modal';
 
 const url = process.env.REACT_APP_URL;
 
@@ -14,7 +15,6 @@ function UpdateUserPage() {
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const [show, setShow] = useState(false);
 	const history = useHistory();
-	const [modalDeleteButton, setButtonText] = useState('Save Changes');
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
@@ -47,7 +47,6 @@ function UpdateUserPage() {
 	};
 
 	let deleteHandler = async () => {
-		const changeText = (text) => setButtonText(text);
 		setSpinnerLoading(true);
 		const deleteUser = await fetch(`${url}/users/me`, {
 			method: 'DELETE',
@@ -60,7 +59,6 @@ function UpdateUserPage() {
 
 		if (!deleteUser.ok) {
 			setSpinnerLoading(false);
-			changeText('failed');
 			return Promise.reject('Failed to delete user');
 		} else {
 			setSpinnerLoading(false);
@@ -87,20 +85,7 @@ function UpdateUserPage() {
 							</button>
 						</div>
 					</div>
-					<Modal show={show} onHide={handleClose}>
-						<Modal.Header closeButton>
-							<Modal.Title>Modal heading</Modal.Title>
-						</Modal.Header>
-						<Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-						<Modal.Footer>
-							<Button variant="secondary" onClick={handleClose}>
-								Close
-							</Button>
-							<Button variant="primary" onClick={deleteHandler} id="confirmDeleteRef">
-								{modalDeleteButton}
-							</Button>
-						</Modal.Footer>
-					</Modal>
+					<Modals show={show} handleClose={handleClose} handler={deleteHandler} />
 				</div>
 			</LoginLayout>
 		</div>

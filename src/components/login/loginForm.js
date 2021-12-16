@@ -67,7 +67,7 @@ function LoginForm(props) {
 				</li>
 				<li>
 					<Link id="signUp" to="/register" className="text-right">
-						<i className="fas fa-user-plus"></i> Sing Up
+						<i className="fas fa-user-plus"></i> Sign Up
 					</Link>
 				</li>
 				<li className="clearfix" />

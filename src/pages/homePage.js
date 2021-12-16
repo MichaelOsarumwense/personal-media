@@ -9,7 +9,7 @@ import { getToken, pageReload } from '../utils/windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
-function HomePage(props) {
+function HomePage() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [loadedPosts, setLoadedPosts] = useState([]);
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
@@ -41,7 +41,7 @@ function HomePage(props) {
 
 	useEffect(() => {
 		setIsLoading(true);
-		fetch(`${url}/posts`, {
+		fetch(`${url}/posts?sortBy=createdAt&OrderBy=desc`, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
