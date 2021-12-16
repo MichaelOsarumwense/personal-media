@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import getUserHandler from '../../utils/getUserHandler';
+import getUserHandler from '../../utils/handlers/getUserHandler';
 
 function UpdateUserForm(props) {
 	const [userData, setUserData] = useState({});
@@ -9,7 +9,6 @@ function UpdateUserForm(props) {
 	}, []);
 
 	const emailRef = useRef();
-	const passwordRef = useRef();
 	const secretRef = useRef();
 	const addressRef = useRef();
 	const birthdayRef = useRef();

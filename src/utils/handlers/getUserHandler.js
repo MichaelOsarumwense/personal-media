@@ -1,4 +1,4 @@
-import { getToken } from '../utils/windowsHelper';
+import { getToken } from '../windowsHelper';
 const url = process.env.REACT_APP_URL;
 
 async function getUserHandler(setUserData) {

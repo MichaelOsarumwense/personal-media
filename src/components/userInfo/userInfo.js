@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import getUserHandler from '../../utils/getUserHandler';
+import getUserHandler from '../../utils/handlers/getUserHandler';
 import avatar from '../layout/images/01.png';
 
 export function UserInfoLeftColumn() {
