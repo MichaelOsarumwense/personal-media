@@ -26,9 +26,9 @@ export async function EditPostHandler(id, setSpinnerLoading, handleClose) {
 	}
 }
 
-export async function SinglePostHandler(id) {
+export async function SinglePostHandler(postId, setDescription) {
 	try {
-		const getPost = await fetch(`${url}/posts/${id}`, {
+		const getPost = await fetch(`${url}/posts/${postId}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -39,7 +39,8 @@ export async function SinglePostHandler(id) {
 		if (!getPost.ok) {
 			return getPost.text().then((result) => Promise.reject(result));
 		} else {
-			getPost.json();
+			const response = await getPost.json();
+			setDescription(response.description);
 		}
 	} catch (e) {
 		console.log(e);

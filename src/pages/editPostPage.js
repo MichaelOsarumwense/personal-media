@@ -1,40 +1,23 @@
+import { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import HomePageLayout from '../components/layout/homeLayout';
 import { useHistory, useParams } from 'react-router-dom';
-import { deleteToken, getToken, pageReload, setToken } from '../utils/windowsHelper';
+import { deleteToken, getToken, pageReload } from '../utils/windowsHelper';
+import { SinglePostHandler } from '../utils/handlers/editPostHandler';
 
 function EditPostPage() {
 	const url = process.env.REACT_APP_URL;
 	const history = useHistory();
+
+	const [description, setDescription] = useState('');
+
 	const returnHome = () => {
 		history.replace('/');
-		deleteToken('description');
-		pageReload();
 	};
 	const { postId } = useParams();
-
-	async function SinglePostHandler() {
-		try {
-			const getPost = await fetch(`${url}/posts/${postId}`, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: getToken(),
-				},
-			});
-
-			if (!getPost.ok) {
-				return getPost.text().then((result) => Promise.reject(result));
-			} else {
-				const response = await getPost.json();
-				setToken('description', response.description);
-			}
-		} catch (e) {
-			console.log(e);
-		}
-	}
-
-	SinglePostHandler();
+	useEffect(() => {
+		SinglePostHandler(postId, setDescription);
+	}, []);
 
 	return (
 		<HomePageLayout>
@@ -42,7 +25,7 @@ function EditPostPage() {
 				<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 					<Form.Label>Update post</Form.Label>
 					<Form.Control
-						defaultValue={getToken('description')}
+						defaultValue={description}
 						as="textarea"
 						style={{ height: '150px' }}
 					/>
