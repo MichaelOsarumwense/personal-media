@@ -77,7 +77,9 @@ function UpdateUserPage() {
 						<div className="wthree-field">
 							<button
 								id="deleteButton"
-								onClick={handleShow}
+								onClick={() => {
+									handleShow();
+								}}
 								type="submit"
 								className="btn"
 							>
