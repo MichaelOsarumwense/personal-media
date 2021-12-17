@@ -5,6 +5,7 @@ import RegisterPage from './pages/registerPage';
 import ResetPasswordPage from './pages/resetPasswordPage';
 import UpdateUserPage from './pages/updateUserPage';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
+import EditPostPage from './pages/editPostPage';
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 			<Route path="/register" component={RegisterPage} />
 			<Route path="/reset-password" component={ResetPasswordPage} />
 			<ProtectedRoute path="/update-user" component={UpdateUserPage} />
+			<ProtectedRoute path="/edit-post/:postId" component={EditPostPage} />
 		</Switch>
 	);
 }

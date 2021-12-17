@@ -12,7 +12,7 @@ function PostItem(props) {
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	console.log(id);
+	const editPostUrl = `/edit-post/${props.postId}`;
 	return (
 		<div>
 			<LoaderComponent spinnerLoading={spinnerLoading} />
@@ -25,12 +25,15 @@ function PostItem(props) {
 				<br />
 				<hr className="w3-clear" />
 				<p id="newPost">{props.description}</p>
-				<Link id="editButton" to="" className="w3-button w3-theme-d1 w3-margin-bottom">
+				<Link
+					id="editButton"
+					to={editPostUrl}
+					className="w3-button w3-theme-d1 w3-margin-bottom"
+				>
 					<i className="fa fa-edit"></i> Edit
 				</Link>
 				<Link
 					onClick={handleShow}
-					to=""
 					id="delete"
 					className="w3-button w3-theme-d1 w3-margin-bottom"
 				>

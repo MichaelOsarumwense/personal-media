@@ -5,7 +5,7 @@ const url = process.env.REACT_APP_URL;
 async function deletePostHandler(id, setSpinnerLoading, handleClose) {
 	try {
 		setSpinnerLoading(true);
-		const deleteUser = await fetch(`${url}/posts/${id}`, {
+		const deletePost = await fetch(`${url}/posts/${id}`, {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
@@ -13,9 +13,9 @@ async function deletePostHandler(id, setSpinnerLoading, handleClose) {
 			},
 		});
 
-		if (!deleteUser.ok) {
+		if (!deletePost.ok) {
 			setSpinnerLoading(false);
-			return deleteUser.text().then((result) => Promise.reject(result));
+			return deletePost.text().then((result) => Promise.reject(result));
 		} else {
 			handleClose();
 			setSpinnerLoading(false);

@@ -13,7 +13,6 @@ function PostLists(props) {
 					name={post.name}
 				/>
 			))}
-			{props.children}
 		</div>
 	);
 }
