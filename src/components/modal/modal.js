@@ -11,7 +11,12 @@ function Modals(props) {
 				<Button variant="secondary" onClick={props.handleClose}>
 					Close
 				</Button>
-				<Button variant="primary" onClick={props.handler} id="confirmDeleteRef">
+				<Button
+					style={{ backgroundColor: '#b30f1f' }}
+					variant="primary"
+					onClick={props.handler}
+					id="confirmDeleteRef"
+				>
 					Delete
 				</Button>
 			</Modal.Footer>

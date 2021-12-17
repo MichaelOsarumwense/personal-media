@@ -1,30 +1,7 @@
-import { getToken, pageReload } from '../windowsHelper';
+import { useHistory } from 'react-router-dom';
+import { getToken } from '../windowsHelper';
 
 const url = process.env.REACT_APP_URL;
-
-export async function EditPostHandler(id, setSpinnerLoading, handleClose) {
-	try {
-		setSpinnerLoading(true);
-		const editPost = await fetch(`${url}/posts/${id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: getToken(),
-			},
-		});
-
-		if (!editPost.ok) {
-			setSpinnerLoading(false);
-			return editPost.text().then((result) => Promise.reject(result));
-		} else {
-			handleClose();
-			setSpinnerLoading(false);
-			pageReload();
-		}
-	} catch (e) {
-		console.log(e);
-	}
-}
 
 export async function SinglePostHandler(postId, setDescription) {
 	try {

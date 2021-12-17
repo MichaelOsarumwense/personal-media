@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import '../../components/layout/css/w3.css';
 import '../../components/layout/css/style.css';
+import '../../components/layout/css/w3.css';
 
 function LoginLayout(props) {
 	return (

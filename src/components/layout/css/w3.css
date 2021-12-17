@@ -37,6 +37,10 @@ section {
 	vertical-align: baseline;
 }
 
+#delete {
+	background-color: #911622 !important;
+}
+
 article,
 footer,
 header,
