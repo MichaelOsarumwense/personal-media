@@ -28,7 +28,7 @@ function RegisterPage() {
 				return createUser.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
-				history.replace('/login');
+				await history.replace('/login');
 			}
 		} catch (e) {
 			setSpinnerLoading(false);

@@ -15,7 +15,7 @@ async function getUserHandler(setUserData) {
 			return getUser.text().then((result) => Promise.reject(result));
 		} else {
 			const users = await getUser.json();
-			setUserData(users);
+			await setUserData(users);
 		}
 	} catch (e) {
 		console.log(e);

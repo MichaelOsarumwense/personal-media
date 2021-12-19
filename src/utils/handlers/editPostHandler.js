@@ -1,10 +1,10 @@
-import { useHistory } from 'react-router-dom';
 import { getToken } from '../windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
-export async function SinglePostHandler(postId, setDescription) {
+export async function SinglePostHandler(postId, setDescription, setSpinnerLoading) {
 	try {
+		setSpinnerLoading(true);
 		const getPost = await fetch(`${url}/posts/${postId}`, {
 			method: 'GET',
 			headers: {
@@ -17,7 +17,8 @@ export async function SinglePostHandler(postId, setDescription) {
 			return getPost.text().then((result) => Promise.reject(result));
 		} else {
 			const response = await getPost.json();
-			setDescription(response.description);
+			await setDescription(response.description);
+			await setSpinnerLoading(false);
 		}
 	} catch (e) {
 		console.log(e);

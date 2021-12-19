@@ -62,8 +62,8 @@ function UpdateUserPage() {
 			return Promise.reject('Failed to delete user');
 		} else {
 			setSpinnerLoading(false);
-			history.replace('/login');
-			deleteToken('access_token');
+			await deleteToken('access_token');
+			await history.replace('/login');
 		}
 	};
 

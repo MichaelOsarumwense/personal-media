@@ -40,9 +40,9 @@ function LoginPage() {
 			if (authenticateUser.error) {
 				setSpinnerLoading(false);
 			} else {
-				history.replace('/');
-				pageReload();
-				setSpinnerLoading(false);
+				await history.replace('/');
+				await pageReload();
+				await setSpinnerLoading(false);
 			}
 		} catch (e) {
 			setSpinnerLoading(false);

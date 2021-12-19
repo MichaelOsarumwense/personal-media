@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import HomePageLayout from '../components/layout/homeLayout';
 import { useHistory, useParams } from 'react-router-dom';
 import { SinglePostHandler } from '../utils/handlers/editPostHandler';
@@ -16,7 +16,9 @@ function EditPostPage() {
 	};
 	const { postId } = useParams();
 
-	SinglePostHandler(postId, setDescription);
+	useEffect(() => {
+		SinglePostHandler(postId, setDescription, setSpinnerLoading);
+	}, []);
 
 	const url = process.env.REACT_APP_URL;
 
@@ -36,8 +38,8 @@ function EditPostPage() {
 				setSpinnerLoading(false);
 				return editPost.text().then((result) => Promise.reject(result));
 			} else {
-				history.replace('/');
-				setSpinnerLoading(false);
+				await setSpinnerLoading(false);
+				await history.replace('/');
 			}
 		} catch (e) {
 			console.log(e);

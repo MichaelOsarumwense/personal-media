@@ -16,8 +16,8 @@ let createPostHandler = async (data, setSpinnerLoading) => {
 			setSpinnerLoading(false);
 			return createPost.text().then((result) => Promise.reject(result));
 		} else {
-			pageReload();
-			setSpinnerLoading(false);
+			await pageReload();
+			await setSpinnerLoading(false);
 		}
 	} catch (e) {
 		setSpinnerLoading(false);

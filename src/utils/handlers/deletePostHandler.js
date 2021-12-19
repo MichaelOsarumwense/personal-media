@@ -17,9 +17,9 @@ async function deletePostHandler(id, setSpinnerLoading, handleClose) {
 			setSpinnerLoading(false);
 			return deletePost.text().then((result) => Promise.reject(result));
 		} else {
-			handleClose();
-			setSpinnerLoading(false);
-			pageReload();
+			await handleClose();
+			await setSpinnerLoading(false);
+			await pageReload();
 		}
 	} catch (e) {
 		console.log(e);
