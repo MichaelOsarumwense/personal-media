@@ -29,7 +29,7 @@ function EditPostForm(props) {
 			<Button
 				variant="primary"
 				type="submit"
-				style={{ backgroundColor: '#435761', borderColor: '#fff' }}
+				style={{ backgroundColor: '#0d6efd', borderColor: '#fff' }}
 			>
 				Submit
 			</Button>

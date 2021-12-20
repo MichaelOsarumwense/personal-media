@@ -7,12 +7,16 @@ import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import { getToken, pageReload } from '../utils/windowsHelper';
 
+import { useToasts } from 'react-toast-notifications';
+
 const url = process.env.REACT_APP_URL;
 
 function HomePage() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [loadedPosts, setLoadedPosts] = useState([]);
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
+
+	const { addToast } = useToasts();
 
 	let CreatePostHandler = async (data) => {
 		try {
@@ -30,8 +34,9 @@ function HomePage() {
 				setSpinnerLoading(false);
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
-				setSpinnerLoading(false);
-				pageReload();
+				await setSpinnerLoading(false);
+				await pageReload();
+				// await addToast('Saved Successfully', { appearance: 'success', autoDismiss: true });
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
