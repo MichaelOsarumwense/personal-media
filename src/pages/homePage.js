@@ -7,7 +7,7 @@ import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import { getToken, pageReload } from '../utils/windowsHelper';
 
-import { useToasts } from 'react-toast-notifications';
+// import { useToasts } from 'react-toast-notifications';
 
 const url = process.env.REACT_APP_URL;
 
@@ -16,7 +16,7 @@ function HomePage() {
 	const [loadedPosts, setLoadedPosts] = useState([]);
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
 
-	const { addToast } = useToasts();
+	// const { addToast } = useToasts();
 
 	let CreatePostHandler = async (data) => {
 		try {
@@ -35,7 +35,7 @@ function HomePage() {
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
 				await setSpinnerLoading(false);
-				await pageReload();
+				pageReload();
 				// await addToast('Saved Successfully', { appearance: 'success', autoDismiss: true });
 			}
 		} catch (e) {

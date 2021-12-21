@@ -3,9 +3,6 @@ import '../../components/layout/css/w3.css';
 import { deleteToken } from '../../utils/windowsHelper';
 
 function HomePageLayout(props) {
-	// function deleteToken() {
-	// 	return window.localStorage.removeItem('access_token');
-	// }
 	return (
 		<div className="w3-theme-l5">
 			<div className="w3-top">
