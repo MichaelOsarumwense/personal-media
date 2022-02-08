@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
-import avatar from '../layout/images/01.png';
+import defaultImage from '../layout/images/01.png';
 
 export function UserInfoLeftColumn() {
 	const [userData, setUserData] = useState({});
+	const [avatar, setAvatar] = useState(false);
 
 	useEffect(() => {
 		getUserHandler(setUserData);
+		getAvatar(setAvatar);
 	}, []);
 
 	return (
@@ -21,7 +24,15 @@ export function UserInfoLeftColumn() {
 						</h4>
 					</Link>
 					<p className="w3-center">
-						<img id="profileImg" src={avatar} className="w3-circle" alt="Avatar" />
+						<label for="image">
+							<input type="file" name="image" id="image" />
+							<img
+								id="profileImg"
+								src={avatar ? avatar : defaultImage}
+								className="w3-circle"
+								alt="Avatar"
+							/>
+						</label>
 					</p>
 					<hr />
 					<p id="profileName">

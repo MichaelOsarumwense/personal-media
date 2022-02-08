@@ -21,6 +21,10 @@ h5 {
 	font-family: 'Open Sans', sans-serif;
 }
 
+#image {
+	display: none;
+}
+
 .overlay {
 	position: fixed; /* Sit on top of the page content */
 	display: block; /* Hidden by default */
@@ -47,6 +51,7 @@ footer {
 #profileImg {
 	height: 106px;
 	width: 106px;
+	cursor: pointer;
 }
 
 #userProfile {
