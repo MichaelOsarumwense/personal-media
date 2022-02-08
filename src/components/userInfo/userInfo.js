@@ -2,16 +2,48 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
+import { pageReload } from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
+import ImageModals from '../modal/imageModal';
 
 export function UserInfoLeftColumn() {
 	const [userData, setUserData] = useState({});
 	const [avatar, setAvatar] = useState(false);
+	const [show, setShow] = useState(false);
+
+	const handleShow = () => setShow(true);
+	const handleClose = () => {
+		setShow(false);
+		pageReload();
+	};
 
 	useEffect(() => {
 		getUserHandler(setUserData);
 		getAvatar(setAvatar);
 	}, []);
+
+	const [selectedFile, setSelectedFile] = useState();
+	const [isFilePicked, setIsFilePicked] = useState(false);
+
+	const changeHandler = (event) => {
+		setSelectedFile(event.target.files[0]);
+		setIsFilePicked(true);
+	};
+
+	const updateImageHandler = async () => {
+		const formData = new FormData();
+
+		formData.append('File', selectedFile);
+
+		// const response = await fetch(
+		// 	'https://freeimage.host/api/1/upload?key=<YOUR_API_KEY>',
+		// 	{
+		// 		method: 'POST',
+		// 		body: formData,
+		// 	}
+		// )
+		// 	const result = await response.json()
+	};
 
 	return (
 		<div className="w3-col m3 sticky">
@@ -25,7 +57,6 @@ export function UserInfoLeftColumn() {
 					</Link>
 					<p className="w3-center">
 						<label for="image">
-							<input type="file" name="image" id="image" />
 							<img
 								id="profileImg"
 								src={avatar ? avatar : defaultImage}
@@ -34,7 +65,10 @@ export function UserInfoLeftColumn() {
 							/>
 						</label>
 					</p>
-					<hr />
+					<Link to={''} onClick={handleShow}>
+						<h4 className="w3-center">Update Image</h4>
+						<hr />
+					</Link>
 					<p id="profileName">
 						<i className="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>
 						{userData.name}
@@ -64,6 +98,15 @@ export function UserInfoLeftColumn() {
 			</div>
 			<br />
 			{/* <!-- End Left Column --> */}
+			<ImageModals
+				show={show}
+				handleClose={handleClose}
+				deleteImageHandler={() => {}}
+				updateImageHandler={updateImageHandler}
+				changeHandler={changeHandler}
+				selectedFile={selectedFile}
+				isFilePicked={isFilePicked}
+			/>
 		</div>
 	);
 }

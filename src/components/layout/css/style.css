@@ -25,6 +25,15 @@ h5 {
 	display: none;
 }
 
+#imageModal {
+	text-align: center !important;
+	font-style: italic !important;
+}
+
+#pp {
+	cursor: pointer;
+}
+
 .overlay {
 	position: fixed; /* Sit on top of the page content */
 	display: block; /* Hidden by default */
