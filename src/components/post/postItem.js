@@ -51,7 +51,7 @@ function PostItem(props) {
 				show={show}
 				handleClose={handleClose}
 				handler={() => {
-					deletePostHandler(id, setSpinnerLoading, handleClose);
+					deletePostHandler(id, setSpinnerLoading, handleClose, props.getPost);
 				}}
 			/>
 		</div>

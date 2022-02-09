@@ -11,6 +11,7 @@ function PostLists(props) {
 					postId={post._id}
 					key={post.id}
 					name={post.name}
+					getPost={props.getPostFunction}
 				/>
 			))}
 		</div>

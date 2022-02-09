@@ -19,9 +19,11 @@ function HomePage() {
 
 	// const { addToast } = useToasts();
 
+	let fetchPostHandler = () => getPostFunction(setIsLoading, setLoadedPosts);
+
 	useEffect(() => {
 		setIsLoading(true);
-		getPostFunction(setIsLoading, setLoadedPosts);
+		fetchPostHandler();
 	}, []);
 
 	let CreatePostHandler = async (data) => {
@@ -40,7 +42,7 @@ function HomePage() {
 				setSpinnerLoading(false);
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
-				getPostFunction(setIsLoading, setLoadedPosts);
+				fetchPostHandler();
 				document.getElementById('postText').value = '';
 				await setSpinnerLoading(false);
 
@@ -61,7 +63,7 @@ function HomePage() {
 			<LoaderComponent spinnerLoading={spinnerLoading} />
 			<UserInfoLeftColumn />
 			<Posts createPost={CreatePostHandler}>
-				<PostLists posts={loadedPosts} />
+				<PostLists getPostFunction={fetchPostHandler} posts={loadedPosts} />
 			</Posts>
 			<UserInfoRightColumn />
 		</HomePageLayout>
