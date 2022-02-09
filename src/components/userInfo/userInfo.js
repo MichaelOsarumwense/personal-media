@@ -2,20 +2,25 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
-import { pageReload } from '../../utils/windowsHelper';
+import { getToken } from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
+import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
+
+const url = process.env.REACT_APP_URL;
 
 export function UserInfoLeftColumn() {
 	const [userData, setUserData] = useState({});
 	const [avatar, setAvatar] = useState(false);
 	const [show, setShow] = useState(false);
+	const [spinnerLoading, setSpinnerLoading] = useState(false);
 
 	const handleShow = () => setShow(true);
 	const handleClose = () => {
 		setShow(false);
-		pageReload();
+		clearImageModal();
 	};
+	const clearImageModal = () => setIsFilePicked(false);
 
 	useEffect(() => {
 		getUserHandler(setUserData);
@@ -31,22 +36,37 @@ export function UserInfoLeftColumn() {
 	};
 
 	const updateImageHandler = async () => {
-		const formData = new FormData();
+		try {
+			setSpinnerLoading(true);
+			const formData = new FormData();
 
-		formData.append('File', selectedFile);
+			formData.append('avatar', selectedFile);
 
-		// const response = await fetch(
-		// 	'https://freeimage.host/api/1/upload?key=<YOUR_API_KEY>',
-		// 	{
-		// 		method: 'POST',
-		// 		body: formData,
-		// 	}
-		// )
-		// 	const result = await response.json()
+			const result = await fetch(`${url}/users/me/avatar`, {
+				headers: {
+					Authorization: getToken(),
+				},
+				method: 'POST',
+				body: formData,
+			});
+
+			if (!result.ok) {
+				setSpinnerLoading(false);
+				return Promise.reject(result);
+			} else {
+				getAvatar(setAvatar);
+				handleClose();
+				await setSpinnerLoading(false);
+			}
+		} catch (error) {
+			setSpinnerLoading(false);
+			console.log(error);
+		}
 	};
 
 	return (
 		<div className="w3-col m3 sticky">
+			<LoaderComponent spinnerLoading={spinnerLoading} />
 			<div className="w3-card w3-round w3-white">
 				<div className="w3-container">
 					<Link id="userProfile" to="/update-user">
@@ -56,7 +76,7 @@ export function UserInfoLeftColumn() {
 						</h4>
 					</Link>
 					<p className="w3-center">
-						<label for="image">
+						<label htmlFor="image">
 							<img
 								id="profileImg"
 								src={avatar ? avatar : defaultImage}
@@ -106,6 +126,7 @@ export function UserInfoLeftColumn() {
 				changeHandler={changeHandler}
 				selectedFile={selectedFile}
 				isFilePicked={isFilePicked}
+				clear={clearImageModal}
 			/>
 		</div>
 	);

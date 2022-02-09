@@ -2,16 +2,12 @@ import { Modal, Button } from 'react-bootstrap';
 
 function ImageModals(props) {
 	return (
-		<Modal
-			show={props.show}
-			selectedFile={props.selectedFile}
-			isFilePicked={props.isFilePicked}
-		>
+		<Modal show={props.show}>
 			<Modal.Header closeButton onClick={props.handleClose}>
 				<Modal.Title>Update Profile Picture</Modal.Title>
 			</Modal.Header>
 			<Modal.Body id="imageModal">
-				<label for="image">
+				<label htmlFor="image">
 					<input
 						className="w3-center"
 						type="file"
@@ -39,7 +35,15 @@ function ImageModals(props) {
 					Update
 				</Button>
 				<Button
-					style={{ backgroundColor: '#b30f1f' }}
+					variant="primary"
+					onClick={props.clear}
+					id="confirmDeleteRef"
+					style={{ backgroundColor: '#435761', borderColor: '#fff' }}
+				>
+					Clear
+				</Button>
+				<Button
+					style={{ backgroundColor: '#b30f1f', borderColor: '#fff' }}
 					onClick={props.deleteImageHandler}
 					id="confirmDeleteRef"
 				>

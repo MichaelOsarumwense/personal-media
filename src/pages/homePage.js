@@ -6,7 +6,7 @@ import Posts from '../components/post/post';
 import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import { getPostFunction } from '../utils/handlers/getPostHandler';
-import { getToken, pageReload } from '../utils/windowsHelper';
+import { getToken } from '../utils/windowsHelper';
 
 // import { useToasts } from 'react-toast-notifications';
 
@@ -21,7 +21,6 @@ function HomePage() {
 
 	useEffect(() => {
 		setIsLoading(true);
-
 		getPostFunction(setIsLoading, setLoadedPosts);
 	}, []);
 
@@ -41,8 +40,9 @@ function HomePage() {
 				setSpinnerLoading(false);
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
+				getPostFunction(setIsLoading, setLoadedPosts);
+				document.getElementById('postText').value = '';
 				await setSpinnerLoading(false);
-				await pageReload();
 
 				// await addToast('Saved Successfully', { appearance: 'success', autoDismiss: true });
 			}
