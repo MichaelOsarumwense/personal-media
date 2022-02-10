@@ -30,18 +30,25 @@ function ImageModals(props) {
 					)}
 				</label>
 			</Modal.Body>
-			<Modal.Footer>
-				<Button variant="primary" onClick={props.updateImageHandler} id="confirmDeleteRef">
-					Update
-				</Button>
-				<Button
-					variant="primary"
-					onClick={props.clear}
-					id="confirmDeleteRef"
-					style={{ backgroundColor: '#435761', borderColor: '#fff' }}
-				>
-					Clear
-				</Button>
+			{props.isFilePicked ? (
+				<Modal.Footer>
+					<Button
+						variant="primary"
+						onClick={props.updateImageHandler}
+						id="confirmDeleteRef"
+					>
+						Update
+					</Button>
+					<Button
+						variant="primary"
+						onClick={props.clear}
+						id="confirmDeleteRef"
+						style={{ backgroundColor: '#435761', borderColor: '#fff' }}
+					>
+						Clear
+					</Button>
+				</Modal.Footer>
+			) : (
 				<Button
 					style={{ backgroundColor: '#b30f1f', borderColor: '#fff' }}
 					onClick={props.deleteImageHandler}
@@ -49,7 +56,7 @@ function ImageModals(props) {
 				>
 					Remove Profile Photo
 				</Button>
-			</Modal.Footer>
+			)}
 		</Modal>
 	);
 }
