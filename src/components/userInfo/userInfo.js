@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import deleteAvatar from '../../utils/handlers/deleteAvatarHandler';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
-import { getToken } from '../../utils/windowsHelper';
+import { defaultAvatar, getToken } from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
 import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
@@ -22,9 +23,11 @@ export function UserInfoLeftColumn() {
 	};
 	const clearImageModal = () => setIsFilePicked(false);
 
+	const updatedAvatarState = () => getAvatar(setAvatar);
+
 	useEffect(() => {
 		getUserHandler(setUserData);
-		getAvatar(setAvatar);
+		updatedAvatarState();
 	}, []);
 
 	const [selectedFile, setSelectedFile] = useState();
@@ -54,7 +57,7 @@ export function UserInfoLeftColumn() {
 				setSpinnerLoading(false);
 				return Promise.reject(result);
 			} else {
-				getAvatar(setAvatar);
+				updatedAvatarState();
 				handleClose();
 				await setSpinnerLoading(false);
 			}
@@ -121,7 +124,9 @@ export function UserInfoLeftColumn() {
 			<ImageModals
 				show={show}
 				handleClose={handleClose}
-				deleteImageHandler={() => {}}
+				deleteImageHandler={() => {
+					deleteAvatar(defaultAvatar, handleClose);
+				}}
 				updateImageHandler={updateImageHandler}
 				changeHandler={changeHandler}
 				selectedFile={selectedFile}
