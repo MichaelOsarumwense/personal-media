@@ -57,8 +57,8 @@ export function UserInfoLeftColumn() {
 				setSpinnerLoading(false);
 				return Promise.reject(result);
 			} else {
-				updatedAvatarState();
-				handleClose();
+				await updatedAvatarState();
+				await handleClose();
 				await setSpinnerLoading(false);
 			}
 		} catch (error) {
@@ -125,7 +125,7 @@ export function UserInfoLeftColumn() {
 				show={show}
 				handleClose={handleClose}
 				deleteImageHandler={() => {
-					deleteAvatar(defaultAvatar, handleClose);
+					deleteAvatar(defaultAvatar, handleClose, setSpinnerLoading);
 				}}
 				updateImageHandler={updateImageHandler}
 				changeHandler={changeHandler}

@@ -1,8 +1,9 @@
 import { getToken } from '../windowsHelper';
 const url = process.env.REACT_APP_URL;
 
-async function deleteAvatar(defaultAvatar, handleClose) {
+async function deleteAvatar(defaultAvatar, handleClose, setSpinnerLoading) {
 	try {
+		setSpinnerLoading(true);
 		const getUser = await fetch(`${url}/users/me/avatar`, {
 			method: 'DELETE',
 			headers: {
@@ -12,12 +13,15 @@ async function deleteAvatar(defaultAvatar, handleClose) {
 		});
 
 		if (!getUser.ok) {
+			setSpinnerLoading(false);
 			return getUser.text().then((result) => Promise.reject(result));
 		} else {
+			setSpinnerLoading(false);
 			defaultAvatar();
 			handleClose();
 		}
 	} catch (e) {
+		setSpinnerLoading(false);
 		console.log(e);
 	}
 }
