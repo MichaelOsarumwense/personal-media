@@ -6,11 +6,12 @@ import Posts from '../components/post/post';
 import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import { getPostFunction } from '../utils/handlers/getPostHandler';
-import { getToken } from '../utils/windowsHelper';
+import { clearText, getToken } from '../utils/windowsHelper';
 
 // import { useToasts } from 'react-toast-notifications';
 
 const url = process.env.REACT_APP_URL;
+const postTextId = 'postText';
 
 function HomePage() {
 	const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +44,7 @@ function HomePage() {
 				return createPost.text().then((result) => Promise.reject(result));
 			} else {
 				fetchPostHandler();
-				document.getElementById('postText').value = '';
+				clearText(postTextId);
 				await setSpinnerLoading(false);
 
 				// await addToast('Saved Successfully', { appearance: 'success', autoDismiss: true });

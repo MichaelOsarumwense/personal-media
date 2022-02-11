@@ -3,12 +3,20 @@ import { Link } from 'react-router-dom';
 import deleteAvatar from '../../utils/handlers/deleteAvatarHandler';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
-import { defaultAvatar, getToken } from '../../utils/windowsHelper';
+import {
+	defaultAvatar,
+	emptyDiv,
+	getToken,
+	hideElement,
+	populateDiv,
+} from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
 import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
 
 const url = process.env.REACT_APP_URL;
+const imageModalTextID = 'modalDiv';
+const updateImageButton = 'updateRef';
 
 export function UserInfoLeftColumn() {
 	const [userData, setUserData] = useState({});
@@ -54,8 +62,12 @@ export function UserInfoLeftColumn() {
 			});
 
 			if (!result.ok) {
-				setSpinnerLoading(false);
-				return Promise.reject(result);
+				const response = await result.json();
+				emptyDiv(imageModalTextID);
+				hideElement(updateImageButton);
+				await setSpinnerLoading(false);
+				await populateDiv(imageModalTextID, response.error);
+				return Promise.reject(response);
 			} else {
 				await updatedAvatarState();
 				await handleClose();

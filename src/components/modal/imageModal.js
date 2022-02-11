@@ -17,7 +17,7 @@ function ImageModals(props) {
 					/>
 					{props.isFilePicked ? (
 						<div id="modalDiv">
-							<p>Filename: {props.selectedFile.name}</p>
+							<p id="fileName">Filename: {props.selectedFile.name}</p>
 							<p>Filetype: {props.selectedFile.type}</p>
 							<p>Size in KB: {props.selectedFile.size / 1000}</p>
 							<p>
@@ -26,23 +26,19 @@ function ImageModals(props) {
 							</p>
 						</div>
 					) : (
-						<p id="pp">click to upload new image </p>
+						<p id="imageModalText">click to upload new image </p>
 					)}
 				</label>
 			</Modal.Body>
 			{props.isFilePicked ? (
 				<Modal.Footer>
-					<Button
-						variant="primary"
-						onClick={props.updateImageHandler}
-						id="confirmDeleteRef"
-					>
+					<Button variant="primary" onClick={props.updateImageHandler} id="updateRef">
 						Update
 					</Button>
 					<Button
 						variant="primary"
 						onClick={props.clear}
-						id="confirmDeleteRef"
+						id="clearRef"
 						style={{ backgroundColor: '#435761', borderColor: '#fff' }}
 					>
 						Clear
@@ -52,7 +48,7 @@ function ImageModals(props) {
 				<Button
 					style={{ backgroundColor: '#b30f1f', borderColor: '#fff' }}
 					onClick={props.deleteImageHandler}
-					id="confirmDeleteRef"
+					id="removeRef"
 				>
 					Remove Profile Photo
 				</Button>
