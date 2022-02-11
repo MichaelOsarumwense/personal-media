@@ -3,20 +3,11 @@ import { Link } from 'react-router-dom';
 import deleteAvatar from '../../utils/handlers/deleteAvatarHandler';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
 import getUserHandler from '../../utils/handlers/getUserHandler';
-import {
-	defaultAvatar,
-	emptyDiv,
-	getToken,
-	hideElement,
-	populateDiv,
-} from '../../utils/windowsHelper';
+import updateAvatarHandler from '../../utils/handlers/updateAvatarHandler';
+import { defaultAvatar } from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
 import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
-
-const url = process.env.REACT_APP_URL;
-const imageModalTextID = 'modalDiv';
-const updateImageButton = 'updateRef';
 
 export function UserInfoLeftColumn() {
 	const [userData, setUserData] = useState({});
@@ -46,38 +37,8 @@ export function UserInfoLeftColumn() {
 		setIsFilePicked(true);
 	};
 
-	const updateImageHandler = async () => {
-		try {
-			setSpinnerLoading(true);
-			const formData = new FormData();
-
-			formData.append('avatar', selectedFile);
-
-			const result = await fetch(`${url}/users/me/avatar`, {
-				headers: {
-					Authorization: getToken(),
-				},
-				method: 'POST',
-				body: formData,
-			});
-
-			if (!result.ok) {
-				const response = await result.json();
-				emptyDiv(imageModalTextID);
-				hideElement(updateImageButton);
-				await setSpinnerLoading(false);
-				await populateDiv(imageModalTextID, response.error);
-				return Promise.reject(response);
-			} else {
-				await updatedAvatarState();
-				await handleClose();
-				await setSpinnerLoading(false);
-			}
-		} catch (error) {
-			setSpinnerLoading(false);
-			console.log(error);
-		}
-	};
+	const updateImageHandler = () =>
+		updateAvatarHandler(setSpinnerLoading, selectedFile, updatedAvatarState, handleClose);
 
 	return (
 		<div className="w3-col m3 sticky">
