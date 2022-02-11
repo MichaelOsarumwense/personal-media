@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import HomePageLayout from '../components/layout/homeLayout';
 import { useHistory, useParams } from 'react-router-dom';
-import { SinglePostHandler } from '../utils/handlers/editPostHandler';
+import { EditPostHandler } from '../utils/handlers/editPostHandler';
 import LoaderComponent from '../components/loader/loader';
 import EditPostForm from '../components/post/editPostForm';
 import { getToken } from '../utils/windowsHelper';
@@ -17,7 +17,8 @@ function EditPostPage() {
 	const { postId } = useParams();
 
 	useEffect(() => {
-		SinglePostHandler(postId, setDescription, setSpinnerLoading);
+		EditPostHandler(postId, setDescription, setSpinnerLoading);
+		// eslint-disable-next-line
 	}, []);
 
 	const url = process.env.REACT_APP_URL;
