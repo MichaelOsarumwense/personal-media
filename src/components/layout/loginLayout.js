@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, BrowserRouter } from 'react-router-dom';
 import '../../components/layout/css/style.css';
 import '../../components/layout/css/w3.css';
 
@@ -9,17 +9,21 @@ function LoginLayout(props) {
 				<div className="bottom-grid">
 					<div className="logo">
 						<h1>
-							<Link id="logo" to="/">
-								Private Media
-							</Link>
+							<BrowserRouter>
+								<Link id="logo" to="/">
+									Private Media
+								</Link>
+							</BrowserRouter>
 						</h1>
 					</div>
 					<div className="links">
 						<ul className="links-unordered-list">
 							<li className="active">
-								<Link id="register" to={props.linkRoute} className="">
-									{props.linkText}
-								</Link>
+								<BrowserRouter>
+									<Link id="register" to={props.linkRoute} className="">
+										{props.linkText}
+									</Link>
+								</BrowserRouter>
 							</li>
 						</ul>
 					</div>
