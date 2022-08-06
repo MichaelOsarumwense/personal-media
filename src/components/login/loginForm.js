@@ -60,19 +60,15 @@ function LoginForm(props) {
 			</div>
 			<ul className="list-login">
 				<li>
-					<BrowserRouter>
-						<Link id="resetPassword" to="/reset-Password" className="text-right">
-							<span className="fas fa-unlock-alt" aria-hidden="true"></span>
-							<span className="fas fa-key" aria-hidden="true"></span> Reset Password?
-						</Link>
-					</BrowserRouter>
+					<Link id="resetPassword" to="/reset-Password" className="text-right">
+						<span className="fas fa-unlock-alt" aria-hidden="true"></span>
+						<span className="fas fa-key" aria-hidden="true"></span> Reset Password?
+					</Link>
 				</li>
 				<li>
-					<BrowserRouter>
-						<Link id="signUp" to="/register" className="text-right">
-							<i className="fas fa-user-plus"></i> Sign Up
-						</Link>
-					</BrowserRouter>
+					<Link id="signUp" to="/register" className="text-right">
+						<i className="fas fa-user-plus"></i> Sign Up
+					</Link>
 				</li>
 				<li className="clearfix" />
 			</ul>

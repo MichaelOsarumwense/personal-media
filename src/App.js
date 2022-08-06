@@ -6,6 +6,7 @@ import ResetPasswordPage from './pages/resetPasswordPage';
 import UpdateUserPage from './pages/updateUserPage';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import EditPostPage from './pages/editPostPage';
+import './index.css';
 // import { ToastProvider } from 'react-toast-notifications';
 
 function App() {

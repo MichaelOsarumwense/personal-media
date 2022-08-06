@@ -1,0 +1,9 @@
+#newPost {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+#profileName {
+	white-space: nowrap;
+	overflow-y: scroll;
+}

@@ -1,18 +1,29 @@
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import LoginPage from '../pages/loginPage';
 
+const loginScreen = (
+	<BrowserRouter>
+		<LoginPage />
+	</BrowserRouter>
+);
+
 test('renders email text box', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 	// screen.debug('');
 	// Screen Items
 	const email = screen.getByPlaceholderText(/email/i);
 
-	expect(email).toBeVisible();
+	userEvent.type(email, 'michael@gmail.com');
+
+	expect(email).toHaveValue('michael@gmail.com');
 	expect(email).toBeEnabled();
+	// screen.getByRole('');
 });
 
 test('render password textbox', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 	// screen.debug('');
 	// Screen Items
 	const password = screen.getByPlaceholderText(/password/i);
@@ -22,7 +33,7 @@ test('render password textbox', () => {
 });
 
 test('renders login button', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 	// screen.debug('');
 	// Screen Items
 	const loginButton = screen.getByRole('button', { name: /login/i });
@@ -32,7 +43,7 @@ test('renders login button', () => {
 });
 
 test('renders logo', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 
 	// Screen Items
 	const logo = screen.getByRole('link', { name: /private media/i });
@@ -42,7 +53,7 @@ test('renders logo', () => {
 });
 
 test('renders register link', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 
 	// Screen Items
 	const registerLink = screen.getByRole('link', { name: /register/i });
@@ -52,7 +63,7 @@ test('renders register link', () => {
 });
 
 test('renders reset password link', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 
 	// Screen Items
 	const resetPasswordLink = screen.getByRole('link', { name: /reset password\?/i });
@@ -62,7 +73,7 @@ test('renders reset password link', () => {
 });
 
 test('renders sign up link', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 	// screen.debug('');
 
 	// Screen Items
@@ -73,7 +84,7 @@ test('renders sign up link', () => {
 });
 
 test('renders intro write up text', () => {
-	render(<LoginPage />);
+	render(loginScreen);
 	// screen.debug('');
 
 	// Screen Items
