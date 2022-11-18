@@ -37,7 +37,7 @@ export const handlers = [
 		);
 	}),
 
-	rest.get(`${url}/me/avatar`, (req, res, ctx) => {
+	rest.get(`${url}/users/me/avatar`, (req, res, ctx) => {
 		return res(ctx.status(404), ctx.json({}));
 	}),
 ];

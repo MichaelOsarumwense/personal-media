@@ -6,11 +6,11 @@ function PostLists(props) {
 			{props.posts.map((post) => (
 				<PostItem
 					owner={post.owner}
-					createdAt={post.createdAt}
+					updatedAt={post.updatedAt}
 					description={post.description}
 					postId={post._id}
 					key={post.id}
-					name={post.name}
+					name={props.name}
 					getPost={props.getPostFunction}
 				/>
 			))}

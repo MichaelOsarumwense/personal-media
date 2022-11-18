@@ -1,5 +1,4 @@
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render, screen, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import HomePage from '../pages/homePage';
 
@@ -10,11 +9,12 @@ const homeScreen = (
 );
 
 test('renders home page', async () => {
-	render(homeScreen);
-	screen.debug('');
-	// Screen Items
-	const signUpLink = await screen.findByRole('button', { name: /ghosts/i });
+	await act(async () => {
+		render(homeScreen);
+		screen.debug('');
+	});
 
+	const signUpLink = await screen.findByRole('button', { name: /Post/i });
 	expect(signUpLink).toBeVisible();
 	expect(signUpLink).toBeEnabled();
 });

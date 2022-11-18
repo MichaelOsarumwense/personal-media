@@ -9,7 +9,7 @@ import defaultImage from '../layout/images/01.png';
 import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
 
-export function UserInfoLeftColumn() {
+export function UserInfoLeftColumn(props) {
 	const [userData, setUserData] = useState({});
 	const [avatar, setAvatar] = useState(false);
 	const [show, setShow] = useState(false);
@@ -67,15 +67,15 @@ export function UserInfoLeftColumn() {
 					</Link>
 					<p id="profileName">
 						<i className="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>
-						{userData.name}
+						{props.userData.name}
 					</p>
 					<p id="profileAddress">
 						<i className="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-						{userData.address}
+						{props.userData.address}
 					</p>
 					<p id="profileDob">
 						<i className="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>
-						{userData.dob}
+						{props.userData.dob}
 					</p>
 					<br />
 				</div>
@@ -87,7 +87,9 @@ export function UserInfoLeftColumn() {
 					<br />
 					<p>Hobbies:</p>
 					<p id="profileHobbies">
-						<span className="w3-tag w3-small w3-theme-d5">{userData.hobbies}</span>
+						<span className="w3-tag w3-small w3-theme-d5">
+							{props.userData.hobbies}
+						</span>
 					</p>
 					<br />
 				</div>
@@ -110,19 +112,14 @@ export function UserInfoLeftColumn() {
 	);
 }
 
-export function UserInfoRightColumn() {
-	const [userData, setUserData] = useState({});
-
-	useEffect(() => {
-		getUserHandler(setUserData);
-	}, []);
+export function UserInfoRightColumn(props) {
 	return (
 		<div className="w3-col m2 w3-hide-small sticky">
 			<div className="w3-card w3-round w3-white w3-center">
 				<div className="w3-container">
 					<br />
 					<p>Events:</p>
-					<p id="profileEvents">{userData.events}</p>
+					<p id="profileEvents">{props.userData.events}</p>
 					<br />
 				</div>
 			</div>

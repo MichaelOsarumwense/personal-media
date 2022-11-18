@@ -13,9 +13,6 @@ function PostItem(props) {
 	const handleShow = () => setShow(true);
 
 	const editPostUrl = `/edit-post/${props.postId}`;
-	var date = new Date(props.createdAt);
-
-	var createdTime = date.toLocaleString();
 
 	return (
 		<div>
@@ -23,7 +20,7 @@ function PostItem(props) {
 			<div className="w3-container w3-card w3-white w3-round w3-margin">
 				<br />
 				<span id="postDate" className="w3-right w3-opacity">
-					{createdTime}
+					{props.updatedAt}
 				</span>
 				<span id="postUsername">{props.name}</span>
 				<br />

@@ -6,6 +6,7 @@ import Posts from '../components/post/post';
 import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import { getPostFunction } from '../utils/handlers/getPostHandler';
+import getUserHandler from '../utils/handlers/getUserHandler';
 import { clearText, getToken } from '../utils/windowsHelper';
 
 // import { useToasts } from 'react-toast-notifications';
@@ -17,6 +18,7 @@ function HomePage() {
 	const [isLoading, setIsLoading] = useState(true);
 	const [loadedPosts, setLoadedPosts] = useState([]);
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
+	const [userData, setUserData] = useState({});
 
 	// const { addToast } = useToasts();
 
@@ -25,6 +27,7 @@ function HomePage() {
 	useEffect(() => {
 		setIsLoading(true);
 		fetchPostHandler();
+		getUserHandler(setUserData);
 	}, []);
 
 	let CreatePostHandler = async (data) => {
@@ -62,11 +65,15 @@ function HomePage() {
 	return (
 		<HomePageLayout>
 			<LoaderComponent spinnerLoading={spinnerLoading} />
-			<UserInfoLeftColumn />
+			<UserInfoLeftColumn userData={userData} />
 			<Posts createPost={CreatePostHandler}>
-				<PostLists getPostFunction={fetchPostHandler} posts={loadedPosts} />
+				<PostLists
+					name={userData.name}
+					getPostFunction={fetchPostHandler}
+					posts={loadedPosts}
+				/>
 			</Posts>
-			<UserInfoRightColumn />
+			<UserInfoRightColumn userData={userData} />
 		</HomePageLayout>
 	);
 }
