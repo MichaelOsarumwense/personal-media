@@ -12,7 +12,7 @@ function Posts(props) {
 			description: enteredPost,
 		};
 
-		props.createPost(userData);
+		props.createPost(userData, props.setSpinnerLoading, props.fetchPostHandler);
 	}
 
 	return (
