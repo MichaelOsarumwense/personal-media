@@ -2,7 +2,7 @@ import { getToken } from '../../utils/windowsHelper';
 const url = process.env.REACT_APP_URL;
 let posts;
 
-async function getPostFunction(setIsLoading, setLoadedPosts) {
+const getPost = async () => {
 	const response = await fetch(`${url}/posts?sortBy=createdAt&OrderBy=desc`, {
 		method: 'GET',
 		headers: {
@@ -13,7 +13,11 @@ async function getPostFunction(setIsLoading, setLoadedPosts) {
 	});
 
 	const data = await response.json();
+	return data;
+};
 
+async function getPostFunction(setIsLoading, setLoadedPosts) {
+	const data = await getPost();
 	posts = [];
 
 	for (const key in data) {
@@ -29,4 +33,4 @@ async function getPostFunction(setIsLoading, setLoadedPosts) {
 	setLoadedPosts(posts);
 }
 
-export { getPostFunction, posts };
+export { getPostFunction, getPost };
