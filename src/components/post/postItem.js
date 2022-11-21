@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import deletePostHandler from '../../utils/handlers/deletePostHandler';
+import { formatDate } from '../../utils/windowsHelper';
 import LoaderComponent from '../loader/loader';
 import Modals from '../modal/modal';
 
 function PostItem(props) {
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
 	const id = String(props.postId);
+	const date = formatDate(props.updatedAt);
 	const [show, setShow] = useState(false);
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
 	const editPostUrl = `/edit-post/${props.postId}`;
-	const date = props.updatedAt || '2022-11-20T23:46:05.232Z';
-	const amPM = parseInt(date.substring(11, 13));
-	const timeOfDay = amPM >= 12 ? 'pm' : 'am';
-	let dates = `${date.substring(11, 16)} ${timeOfDay} (${date.substring(0, 10)})`;
 
 	return (
 		<div>
@@ -24,7 +22,7 @@ function PostItem(props) {
 			<div className="w3-container w3-card w3-white w3-round w3-margin">
 				<br />
 				<span id="postDate" className="w3-right w3-opacity">
-					{dates}
+					{date}
 				</span>
 				<span id="postUsername">{props.name}</span>
 				<br />

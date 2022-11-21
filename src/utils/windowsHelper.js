@@ -22,3 +22,11 @@ export const emptyDiv = (id) => (document.getElementById(id).innerHTML = '');
 export const populateDiv = (id, text) => (document.getElementById(id).innerHTML = text);
 
 export const hideElement = (id) => (document.getElementById(id).style.display = 'none');
+
+export const formatDate = (value) => {
+	const date = value || 'YYYY-MM-DDT00:00:00.000Z';
+	const timeOfDay = parseInt(date.substring(11, 13));
+	const amPM = timeOfDay >= 12 ? 'pm' : 'am';
+	let dates = `${date.substring(11, 16)} ${amPM} (${date.substring(0, 10)})`;
+	return dates;
+};
