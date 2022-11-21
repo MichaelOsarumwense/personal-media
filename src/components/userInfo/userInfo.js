@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import deleteAvatar from '../../utils/handlers/deleteAvatarHandler';
 import getAvatar from '../../utils/handlers/getAvatarHandler';
-import getUserHandler from '../../utils/handlers/getUserHandler';
+import { getUserHandler } from '../../utils/handlers/getUserHandler';
 import updateAvatarHandler from '../../utils/handlers/updateAvatarHandler';
 import { defaultAvatar } from '../../utils/windowsHelper';
 import defaultImage from '../layout/images/01.png';
@@ -67,15 +67,15 @@ export function UserInfoLeftColumn(props) {
 					</Link>
 					<p id="profileName">
 						<i className="fa fa-user fa-fw w3-margin-right w3-text-theme"></i>
-						{props.userData.name}
+						{userData.name}
 					</p>
 					<p id="profileAddress">
 						<i className="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-						{props.userData.address}
+						{userData.address}
 					</p>
 					<p id="profileDob">
 						<i className="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i>
-						{props.userData.dob}
+						{userData.dob}
 					</p>
 					<br />
 				</div>

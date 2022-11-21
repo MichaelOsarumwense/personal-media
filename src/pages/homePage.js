@@ -7,7 +7,7 @@ import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
 import CreatePostHandler from '../utils/handlers/createPostHandler';
 import { getPostFunction } from '../utils/handlers/getPostHandler';
-import getUserHandler from '../utils/handlers/getUserHandler';
+import { getUserHandler } from '../utils/handlers/getUserHandler';
 
 // import { useToasts } from 'react-toast-notifications';
 

@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import getUserHandler from '../../utils/handlers/getUserHandler';
+import { getUserHandler } from '../../utils/handlers/getUserHandler';
 
 function UpdateUserForm(props) {
 	const [userData, setUserData] = useState({});
