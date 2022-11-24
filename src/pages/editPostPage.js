@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { EditPostHandler } from '../utils/handlers/editPostHandler';
 import LoaderComponent from '../components/loader/loader';
 import EditPostForm from '../components/post/editPostForm';
-import { getToken } from '../utils/windowsHelper';
+import { updatePost } from '../utils/handlers/updatePostHandler';
 
 function EditPostPage() {
 	const history = useHistory();
@@ -25,24 +25,13 @@ function EditPostPage() {
 
 	async function editPostHandler(data) {
 		try {
-			setSpinnerLoading(true);
-			const editPost = await fetch(`${url}/posts/${postId}`, {
-				method: 'PATCH',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: getToken(),
-				},
-				body: JSON.stringify(data),
-			});
+			await updatePost(url, data, postId);
+			setSpinnerLoading(false);
 
-			if (!editPost.ok) {
-				setSpinnerLoading(false);
-				return editPost.text().then((result) => Promise.reject(result));
-			} else {
-				await setSpinnerLoading(false);
-				await history.replace('/');
-			}
+			setSpinnerLoading(false);
+			history.replace('/');
 		} catch (e) {
+			setSpinnerLoading(false);
 			console.log(e);
 		}
 	}

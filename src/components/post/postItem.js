@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import deletePostHandler from '../../utils/handlers/deletePostHandler';
-import { formatDate } from '../../utils/windowsHelper';
 import LoaderComponent from '../loader/loader';
 import Modals from '../modal/modal';
 
 function PostItem(props) {
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
+	const formatDate = (value) => {
+		const date = value || 'YYYY-MM-DDT00:00:00.000Z';
+		const timeOfDay = parseInt(date.substring(11, 13));
+		const amPM = timeOfDay >= 12 ? 'pm' : 'am';
+		let dates = `${date.substring(11, 16)} ${amPM} (${date.substring(0, 10)})`;
+		return dates;
+	};
 	const id = String(props.postId);
 	const date = formatDate(props.updatedAt);
 	const [show, setShow] = useState(false);

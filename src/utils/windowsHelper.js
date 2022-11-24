@@ -1,32 +1,49 @@
-import defaultImage from '../components/layout/images/01.png';
+require('dotenv').config();
 
-export const pageReload = () => window.location.reload();
+const pageReload = () => window.location.reload();
 
-export const setToken = (key, value) => window.localStorage.setItem(key, value);
-
-export const getToken = (token = 'access_token') => window.localStorage.getItem(token);
-
-export const deleteToken = (token = 'access_token') => window.localStorage.removeItem(token);
-
-export const defaultAvatar = () => {
-	var pic = document.getElementById('profileImg');
-	pic.src = defaultImage;
+const setToken = (key, value) => {
+	if (typeof window !== 'undefined') {
+		window.localStorage.setItem(key, value);
+	} else {
+		return process.env.TOKEN;
+	}
 };
 
-export const changeText = (id, text) => (document.getElementById(id).value = text);
+const getToken = (token = 'access_token') => {
+	if (typeof window !== 'undefined') {
+		return window.localStorage.getItem(token);
+	} else {
+		return process.env.TOKEN;
+	}
+};
 
-export const clearText = (id) => (document.getElementById(id).value = '');
+const deleteToken = (token = 'access_token') => window.localStorage.removeItem(token);
 
-export const emptyDiv = (id) => (document.getElementById(id).innerHTML = '');
+const defaultAvatar = () => {
+	var pic = document.getElementById('profileImg');
+	pic.src = '../components/layout/images/01.png';
+};
 
-export const populateDiv = (id, text) => (document.getElementById(id).innerHTML = text);
+const changeText = (id, text) => (document.getElementById(id).value = text);
 
-export const hideElement = (id) => (document.getElementById(id).style.display = 'none');
+const clearText = (id) => (document.getElementById(id).value = '');
 
-export const formatDate = (value) => {
-	const date = value || 'YYYY-MM-DDT00:00:00.000Z';
-	const timeOfDay = parseInt(date.substring(11, 13));
-	const amPM = timeOfDay >= 12 ? 'pm' : 'am';
-	let dates = `${date.substring(11, 16)} ${amPM} (${date.substring(0, 10)})`;
-	return dates;
+const emptyDiv = (id) => (document.getElementById(id).innerHTML = '');
+
+const populateDiv = (id, text) => (document.getElementById(id).innerHTML = text);
+
+const hideElement = (id) => (document.getElementById(id).style.display = 'none');
+
+module.exports = {
+	getToken,
+	hideElement,
+	populateDiv,
+	emptyDiv,
+	clearText,
+	changeText,
+	defaultAvatar,
+	deleteToken,
+	setToken,
+	pageReload,
 };
