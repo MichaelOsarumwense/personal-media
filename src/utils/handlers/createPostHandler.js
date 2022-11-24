@@ -1,31 +1,35 @@
-import { clearText, getToken } from '../windowsHelper';
+const { default: axios } = require('axios');
+const { clearText, getToken } = require('../windowsHelper');
 
-const url = process.env.REACT_APP_URL;
 const postTextId = 'postText';
 
-const createPost = async (data) => {
-	const response = await fetch(`${url}/posts`, {
+const createPost = async (body, url) => {
+	const response = await axios.request({
 		method: 'POST',
+		baseURL: url,
+		url: '/posts',
 		headers: {
+			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: getToken(),
 		},
-		body: JSON.stringify(data),
+		data: body,
 	});
 
-	if (!response.ok) {
-		return response.text().then((result) => Promise.reject(result));
+	if (!response.statusText) {
+		return Promise.reject(response);
 	} else {
-		const object = await response.json();
+		const object = response;
 		return object;
 	}
 };
 
 let CreatePostHandler = async (data, setSpinnerLoading, fetchPostHandler) => {
+	const url = process.env.REACT_APP_URL;
 	try {
 		setSpinnerLoading(true);
 
-		await createPost(data);
+		await createPost(data, url);
 
 		await fetchPostHandler();
 		clearText(postTextId);
@@ -36,4 +40,4 @@ let CreatePostHandler = async (data, setSpinnerLoading, fetchPostHandler) => {
 	}
 };
 
-export { CreatePostHandler, createPost };
+module.exports = { CreatePostHandler, createPost };

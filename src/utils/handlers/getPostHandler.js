@@ -1,23 +1,54 @@
-import { getToken } from '../../utils/windowsHelper';
-const url = process.env.REACT_APP_URL;
+const { getToken } = require('../../utils/windowsHelper');
 let posts;
 
-const getPost = async () => {
-	const response = await fetch(`${url}/posts?sortBy=createdAt&OrderBy=desc`, {
+const axios = require('axios');
+
+const getPost = async (endpoint) => {
+	const response = await axios.request({
 		method: 'GET',
+		baseURL: endpoint,
+		url: '/posts',
+		params: {
+			sortBy: 'createdAt',
+			OrderBy: 'desc',
+		},
 		headers: {
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 			Authorization: getToken(),
 		},
 	});
-
-	const data = await response.json();
-	return data;
+	if (!response.statusText) {
+		return Promise.reject(response);
+	} else {
+		const object = await response;
+		return object;
+	}
 };
 
-async function getPostFunction(setIsLoading, setLoadedPosts) {
-	const data = await getPost();
+const getPostById = async (endpoint, id) => {
+	const response = await axios.request({
+		method: 'GET',
+		baseURL: endpoint,
+		url: `/posts/${id}`,
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+			Authorization: getToken(),
+		},
+	});
+	if (!response.statusText) {
+		return Promise.reject(response);
+	} else {
+		const object = await response;
+		return object;
+	}
+};
+
+const getPostFunction = async (setIsLoading, setLoadedPosts) => {
+	const url = process.env.REACT_APP_URL;
+	const dataObject = await getPost(url);
+	const data = await dataObject.data;
 	posts = [];
 
 	for (const key in data) {
@@ -31,6 +62,6 @@ async function getPostFunction(setIsLoading, setLoadedPosts) {
 
 	setIsLoading(false);
 	setLoadedPosts(posts);
-}
+};
 
-export { getPostFunction, getPost };
+module.exports = { getPostFunction, getPost, getPostById };
