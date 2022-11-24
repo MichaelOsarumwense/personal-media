@@ -1,0 +1,192 @@
+{
+  "consumer": {
+    "name": "Personal Media"
+  },
+  "interactions": [
+    {
+      "description": "create post request",
+      "providerState": "Create new Post",
+      "request": {
+        "body": {
+          "description": "This is a new Post"
+        },
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU0MzBhOTk0NjUzMjMzNDRjOTQ5YmUiLCJpYXQiOjE2NjkyNDg0NjR9.6N2rMfkj1PF0VDIEI6T00HnnSIJrwgvV41UwJqam1qo",
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          },
+          "$.header.$.Authorization": {
+            "match": "type"
+          }
+        },
+        "method": "POST",
+        "path": "/posts"
+      },
+      "response": {
+        "body": {
+          "__v": 0,
+          "_id": "6377f34535e1266270b551a1",
+          "createdAt": "2022-11-18T21:04:05.066Z",
+          "description": "This is a new Post",
+          "name": "prod",
+          "owner": "635430a99465323344c949be",
+          "updatedAt": "2022-11-18T21:04:05.066Z"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        },
+        "status": 201
+      }
+    },
+    {
+      "description": "creates a ",
+      "providerState": "i get post by ID",
+      "request": {
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU0MzBhOTk0NjUzMjMzNDRjOTQ5YmUiLCJpYXQiOjE2NjkyNDg0NjR9.6N2rMfkj1PF0VDIEI6T00HnnSIJrwgvV41UwJqam1qo"
+        },
+        "matchingRules": {
+          "$.header.$": {
+            "match": "type"
+          }
+        },
+        "method": "GET",
+        "path": "/posts/6377f34535e1266270b551a9"
+      },
+      "response": {
+        "body": {
+          "_id": "6377f34535e1266270b551a9",
+          "createdAt": "2022-11-18T21:04:05.066Z",
+          "description": "lets make love",
+          "name": "prod",
+          "owner": "635430a99465323344c949be",
+          "updatedAt": "2022-11-18T21:04:05.066Z"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "get posy by ID",
+      "providerState": "i get post by ID",
+      "request": {
+        "body": {
+          "description": "lets make love"
+        },
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU0MzBhOTk0NjUzMjMzNDRjOTQ5YmUiLCJpYXQiOjE2NjkyNDg0NjR9.6N2rMfkj1PF0VDIEI6T00HnnSIJrwgvV41UwJqam1qo",
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.header.$": {
+            "match": "type"
+          }
+        },
+        "method": "PATCH",
+        "path": "/posts/6377f34535e1266270b551a9"
+      },
+      "response": {
+        "body": {
+          "__v": 0,
+          "_id": "6377f34535e1266270b551a9",
+          "createdAt": "2022-11-18T21:04:05.066Z",
+          "description": "lets make love",
+          "name": "prod",
+          "owner": "635430a99465323344c949be",
+          "updatedAt": "2022-11-18T21:04:05.066Z"
+        },
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        },
+        "status": 200
+      }
+    },
+    {
+      "description": "a request for get posts",
+      "providerState": "i have a list posts",
+      "request": {
+        "headers": {
+          "Accept": "application/json",
+          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU0MzBhOTk0NjUzMjMzNDRjOTQ5YmUiLCJpYXQiOjE2NjkyNDg0NjR9.6N2rMfkj1PF0VDIEI6T00HnnSIJrwgvV41UwJqam1qo"
+        },
+        "matchingRules": {
+          "$.header.$": {
+            "match": "type"
+          }
+        },
+        "method": "GET",
+        "path": "/posts",
+        "query": "OrderBy=desc&sortBy=createdAt"
+      },
+      "response": {
+        "body": [
+          {
+            "__v": 0,
+            "_id": "6377f34535e1266270b551a9",
+            "createdAt": "2022-11-18T21:04:05.066Z",
+            "description": "lets make love",
+            "name": "prod",
+            "owner": "635430a99465323344c949be",
+            "updatedAt": "2022-11-18T21:04:05.066Z"
+          },
+          {
+            "__v": 0,
+            "_id": "6377b10aab45435f08659a64",
+            "createdAt": "2022-11-18T16:21:30.396Z",
+            "description": "lets make love",
+            "name": "prod",
+            "owner": "635430a99465323344c949be",
+            "updatedAt": "2022-11-18T16:21:30.396Z"
+          }
+        ],
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "matchingRules": {
+          "$.body": {
+            "match": "type"
+          }
+        },
+        "status": 200
+      }
+    }
+  ],
+  "metadata": {
+    "pact-js": {
+      "version": "10.2.2"
+    },
+    "pactRust": {
+      "ffi": "0.3.14",
+      "models": "1.0.0"
+    },
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  },
+  "provider": {
+    "name": "Backend Personal Media"
+  }
+}
