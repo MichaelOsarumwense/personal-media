@@ -5,8 +5,9 @@ import LoaderComponent from '../components/loader/loader';
 import Posts from '../components/post/post';
 import PostLists from '../components/post/postLists';
 import { UserInfoLeftColumn, UserInfoRightColumn } from '../components/userInfo/userInfo';
-import { CreatePostHandler } from '../utils/handlers/createPostHandler';
 import { getUserHandler } from '../utils/handlers/getUserHandler';
+
+const { CreatePostHandler } = require('../utils/handlers/createPostHandler');
 
 const { getPostFunction } = require('../utils/handlers/getPostHandler.js');
 
