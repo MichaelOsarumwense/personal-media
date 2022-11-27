@@ -1,4 +1,4 @@
-import { getToken } from '../../utils/windowsHelper';
+const { getToken } = require('../windowsHelper');
 const url = process.env.REACT_APP_URL;
 
 async function getAvatar(setAvatar) {

@@ -1,4 +1,4 @@
-import { emptyDiv, getToken, hideElement, populateDiv } from '../windowsHelper';
+const { emptyDiv, getToken, hideElement, populateDiv } = require('../windowsHelper');
 const url = process.env.REACT_APP_URL;
 
 const imageModalTextID = 'modalDiv';

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import HomePageLayout from '../components/layout/homeLayout';
 import { useHistory, useParams } from 'react-router-dom';
-import { EditPostHandler } from '../utils/handlers/editPostHandler';
 import LoaderComponent from '../components/loader/loader';
 import EditPostForm from '../components/post/editPostForm';
-import { updatePost } from '../utils/handlers/updatePostHandler';
+
+const { EditPostHandler } = require('../utils/handlers/editPostHandler');
+const { updatePost } = require('../utils/handlers/updatePostHandler');
 
 function EditPostPage() {
 	const history = useHistory();
