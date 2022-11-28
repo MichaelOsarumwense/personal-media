@@ -11,7 +11,7 @@ const { updatePost } = require('../src/utils/handlers/updatePostHandler');
 const { like } = MatchersV3;
 const token = process.env.TOKEN;
 
-pactWith({ consumer: 'Personal Media', provider: 'Backend Personal Media' }, (provider) => {
+pactWith({ consumer: 'Consumer-Personal-Media', provider: 'Provider-Backend' }, (provider) => {
 	describe('get posts', () => {
 		// This is the body we expect to get back from the provider
 		const EXPECTED_BODY = [

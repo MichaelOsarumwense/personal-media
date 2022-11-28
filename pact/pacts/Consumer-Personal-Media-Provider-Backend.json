@@ -1,6 +1,6 @@
 {
   "consumer": {
-    "name": "Personal Media"
+    "name": "Consumer-Personal-Media"
   },
   "interactions": [
     {
@@ -45,42 +45,6 @@
           }
         },
         "status": 201
-      }
-    },
-    {
-      "description": "creates a ",
-      "providerState": "i get post by ID",
-      "request": {
-        "headers": {
-          "Accept": "application/json",
-          "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzU0MzBhOTk0NjUzMjMzNDRjOTQ5YmUiLCJpYXQiOjE2NjkyNDg0NjR9.6N2rMfkj1PF0VDIEI6T00HnnSIJrwgvV41UwJqam1qo"
-        },
-        "matchingRules": {
-          "$.header.$": {
-            "match": "type"
-          }
-        },
-        "method": "GET",
-        "path": "/posts/6377f34535e1266270b551a9"
-      },
-      "response": {
-        "body": {
-          "_id": "6377f34535e1266270b551a9",
-          "createdAt": "2022-11-18T21:04:05.066Z",
-          "description": "lets make love",
-          "name": "prod",
-          "owner": "635430a99465323344c949be",
-          "updatedAt": "2022-11-18T21:04:05.066Z"
-        },
-        "headers": {
-          "Content-Type": "application/json"
-        },
-        "matchingRules": {
-          "$.body": {
-            "match": "type"
-          }
-        },
-        "status": 200
       }
     },
     {
@@ -187,6 +151,6 @@
     }
   },
   "provider": {
-    "name": "Backend Personal Media"
+    "name": "Provider-Backend"
   }
 }
