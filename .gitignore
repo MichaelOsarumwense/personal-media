@@ -7,10 +7,10 @@
 
 # testing
 /coverage
+/pact
 
 # production
 /build
-/pact/pacts
 
 # misc
 .DS_Store
