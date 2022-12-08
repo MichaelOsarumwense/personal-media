@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const pageReload = () => window.location.reload();
 
 const setToken = (key, value) => {
