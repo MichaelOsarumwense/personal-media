@@ -10,6 +10,7 @@
 
 # production
 /build
+/pact/pacts
 
 # misc
 .DS_Store
