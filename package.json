@@ -14,7 +14,7 @@
 		"react-helmet": "^6.1.0",
 		"react-loader-spinner": "^4.0.0",
 		"react-router-dom": "^5.2.0",
-		"react-scripts": "^4.0.3",
+		"react-scripts": "^5.0.1",
 		"react-toast-notifications": "^2.5.1",
 		"web-vitals": "^1.1.0"
 	},
@@ -31,7 +31,7 @@
 		"test": "react-scripts test --maxWorkers=1",
 		"test:unit": "react-scripts test --runInBand",
 		"test:unit:ci": "react-scripts test --watchAll false --ci --runInBand",
-		"test:consumer": "env-cmd rimraf pacts && jest __tests__/ --runInBand",
+		"test:consumer": "cross-env rimraf pacts && jest __tests__/ --runInBand",
 		"test:publish": "node publish.js",
 		"eject": "react-scripts eject"
 	},
@@ -54,8 +54,10 @@
 		]
 	},
 	"devDependencies": {
-		"@pact-foundation/pact": "^10.2.2",
+		"@pact-foundation/pact": "^10.3.1",
 		"@pact-foundation/pact-node": "^10.17.6",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.0.3",
 		"jest-pact": "^0.10.1",
 		"rimraf": "^3.0.2"
 	}
