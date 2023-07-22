@@ -1,8 +1,11 @@
 import { useRef } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EditPostForm(props) {
 	const editPostRef = useRef();
+
 	function submitHandler(event) {
 		event.preventDefault();
 
@@ -12,7 +15,22 @@ function EditPostForm(props) {
 			description: editedPost,
 		};
 
-		props.editedPost(userData);
+		props
+			.editedPost(userData)
+			.then((result) => {
+				// If the post editing is successful, show a success toast
+				toast.success('Post edited successfully!', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
+				// Call the function to return to the home page or post list page
+				props.returnHome();
+			})
+			.catch((error) => {
+				// If there's an error in post editing, show an error toast
+				toast.error('Failed to edit post. Please try again.', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
+			});
 	}
 
 	return (

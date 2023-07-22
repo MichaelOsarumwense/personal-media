@@ -1,4 +1,6 @@
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Posts(props) {
 	const postRef = useRef();
@@ -12,7 +14,20 @@ function Posts(props) {
 			description: enteredPost,
 		};
 
-		props.createPost(userData, props.setSpinnerLoading, props.fetchPostHandler);
+		props
+			.createPost(userData, props.setSpinnerLoading, props.fetchPostHandler)
+			.then((result) => {
+				// If the post creation is successful, show a success toast
+				toast.success('Post created successfully!', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
+			})
+			.catch((error) => {
+				// If there's an error in post creation, show an error toast
+				toast.error('Failed to create post. Please try again.', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
+			});
 	}
 
 	return (

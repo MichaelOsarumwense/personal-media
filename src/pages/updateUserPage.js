@@ -5,6 +5,8 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../components/layout/loginLayout';
 import UpdateUserForm from '../components/updateUser/updateUserForm';
 import LoaderComponent from '../components/loader/loader';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { getToken, deleteToken } from '../utils/windowsHelper';
 import Modals from '../components/modal/modal';
@@ -35,13 +37,22 @@ function UpdateUserPage() {
 
 			if (!updateUser.ok) {
 				setSpinnerLoading(false);
+				toast.error('User update failed.', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
 				return updateUser.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
 				history.replace('/');
+				toast.success('User update success.', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
+			toast.error(e, {
+				position: toast.POSITION.TOP_RIGHT,
+			});
 			console.log(e);
 		}
 	};
@@ -59,11 +70,19 @@ function UpdateUserPage() {
 
 		if (!deleteUser.ok) {
 			setSpinnerLoading(false);
+			history.replace('/');
+			toast.error('Failed to delete user.', {
+				position: toast.POSITION.TOP_RIGHT,
+			});
 			return Promise.reject('Failed to delete user');
 		} else {
 			setSpinnerLoading(false);
-			await deleteToken('access_token');
+			deleteToken('access_token');
 			await history.replace('/login');
+			history.replace('/');
+			toast.success('Success, user deleted', {
+				position: toast.POSITION.TOP_RIGHT,
+			});
 		}
 	};
 

@@ -1,12 +1,13 @@
+// eslint-disable-next-line
+
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import LoginLayout from '../components/layout/loginLayout';
 import LoaderComponent from '../components/loader/loader';
 import LoginForm from '../components/login/loginForm';
-import { setToken, generateUserToken } from '../utils/windowsHelper';
+import { setToken } from '../utils/windowsHelper';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const url = process.env.REACT_APP_URL;
 
@@ -14,41 +15,43 @@ function LoginPage() {
 	const history = useHistory();
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
 
-	const handleLoginSuccess = (token) => {
-		setToken('access_token', token);
-		// Redirect to the homepage with a success message as query parameter
-		history.replace('/?success=Login successful!');
-	};
-
-	const handleLoginError = (error) => {
-		toast.error(error, {
-			position: toast.POSITION.TOP_RIGHT,
-		});
-	};
-
 	let loginHandler = async (data) => {
 		try {
 			setSpinnerLoading(true);
-			const generateToken = await generateUserToken(url, data);
+			const generateToken = await fetch(`${url}/users/login`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
 
 			if (!generateToken.ok) {
 				setSpinnerLoading(false);
-				const errorMessage = generateToken.statusText;
-				handleLoginError(errorMessage);
+				toast.error(generateToken.statusText, {
+					position: toast.POSITION.TOP_RIGHT,
+				});
+				return generateToken.text().then((result) => Promise.reject(result));
 			} else {
 				const jsonResponse = await generateToken.json();
-				setSpinnerLoading(false);
-				handleLoginSuccess(jsonResponse.token);
+				setToken('access_token', jsonResponse.token);
+				history.replace('/');
+				toast.success('Login successful', {
+					position: toast.POSITION.TOP_RIGHT,
+				});
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
+			toast.error(e, {
+				position: toast.POSITION.TOP_RIGHT,
+			});
 			console.log(e);
 		}
 	};
 
 	return (
 		<div>
-			<ToastContainer />
 			<LoginLayout linkText={'Register'} linkRoute={'/register'}>
 				<div className="content-w3ls">
 					<div className="content-bottom">
