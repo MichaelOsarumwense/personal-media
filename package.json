@@ -28,7 +28,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "react-scripts start",
 		"test": "react-scripts test --maxWorkers=1",
 		"test:unit": "react-scripts test --runInBand",
 		"test:unit:ci": "react-scripts test --watchAll false --ci --runInBand",
