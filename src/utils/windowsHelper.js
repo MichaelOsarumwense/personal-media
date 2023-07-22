@@ -33,6 +33,16 @@ const populateDiv = (id, text) => (document.getElementById(id).innerHTML = text)
 
 const hideElement = (id) => (document.getElementById(id).style.display = 'none');
 
+const generateUserToken = async (url, data) =>
+	await fetch(`${url}/users/login`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(data),
+	});
+
 module.exports = {
 	getToken,
 	hideElement,
@@ -44,4 +54,5 @@ module.exports = {
 	deleteToken,
 	setToken,
 	pageReload,
+	generateUserToken,
 };

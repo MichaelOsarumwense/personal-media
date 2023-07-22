@@ -1,11 +1,12 @@
-// eslint-disable-next-line
-
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import LoginLayout from '../components/layout/loginLayout';
 import LoaderComponent from '../components/loader/loader';
 import LoginForm from '../components/login/loginForm';
-import { setToken, pageReload } from '../utils/windowsHelper';
+import { setToken, generateUserToken } from '../utils/windowsHelper';
 
 const url = process.env.REACT_APP_URL;
 
@@ -13,36 +14,31 @@ function LoginPage() {
 	const history = useHistory();
 	const [spinnerLoading, setSpinnerLoading] = useState(false);
 
+	const handleLoginSuccess = (token) => {
+		setToken('access_token', token);
+		// Redirect to the homepage with a success message as query parameter
+		history.replace('/?success=Login successful!');
+	};
+
+	const handleLoginError = (error) => {
+		toast.error(error, {
+			position: toast.POSITION.TOP_RIGHT,
+		});
+	};
+
 	let loginHandler = async (data) => {
 		try {
 			setSpinnerLoading(true);
-			const generateToken = await fetch(`${url}/users/login`, {
-				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify(data),
-			});
+			const generateToken = await generateUserToken(url, data);
 
 			if (!generateToken.ok) {
 				setSpinnerLoading(false);
-				return generateToken.text().then((result) => Promise.reject(result));
+				const errorMessage = generateToken.statusText;
+				handleLoginError(errorMessage);
 			} else {
 				const jsonResponse = await generateToken.json();
-				setToken('access_token', jsonResponse.token);
-			}
-
-			const authenticateUser = await fetch('users/me', {
-				headers: { Authorization: localStorage.getItem('access_token') },
-			});
-
-			if (authenticateUser.error) {
 				setSpinnerLoading(false);
-			} else {
-				await setSpinnerLoading(false);
-				await history.replace('/');
-				pageReload();
+				handleLoginSuccess(jsonResponse.token);
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
@@ -52,6 +48,7 @@ function LoginPage() {
 
 	return (
 		<div>
+			<ToastContainer />
 			<LoginLayout linkText={'Register'} linkRoute={'/register'}>
 				<div className="content-w3ls">
 					<div className="content-bottom">
