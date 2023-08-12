@@ -43,7 +43,7 @@ const generateUserToken = async (url, data) =>
 		body: JSON.stringify(data),
 	});
 
-module.exports = {
+export {
 	getToken,
 	hideElement,
 	populateDiv,
