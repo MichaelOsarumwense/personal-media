@@ -36,7 +36,7 @@ function LoginPage() {
       } else {
         const jsonResponse = await generateToken.json();
         setToken('access_token', jsonResponse.token);
-        history.replace('/home');
+        history.replace('/');
         toast.success('Login successful', {
           position: toast.POSITION.TOP_RIGHT,
         });

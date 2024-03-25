@@ -26,6 +26,7 @@
     "node": "20.11.1",
     "npm": "10.2.4"
   },
+  "homepage": "https://personal-media.vercel.app/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
