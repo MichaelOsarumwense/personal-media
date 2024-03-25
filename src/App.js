@@ -10,18 +10,19 @@ import './index.css';
 // import { ToastProvider } from 'react-toast-notifications';
 
 function App() {
-	return (
-		<Switch>
-			{/* <ToastProvider> */}
-			<ProtectedRoute path="/" component={HomePage} exact />
-			<Route path="/login" component={LoginPage} />
-			<Route path="/register" component={RegisterPage} />
-			<Route path="/reset-password" component={ResetPasswordPage} />
-			<ProtectedRoute path="/update-user" component={UpdateUserPage} />
-			<ProtectedRoute path="/edit-post/:postId" component={EditPostPage} />
-			{/* </ToastProvider> */}
-		</Switch>
-	);
+  return (
+    <Switch>
+      {/* <ToastProvider> */}
+      <ProtectedRoute path="/" component={HomePage} exact />
+      <ProtectedRoute path="/home" component={HomePage} exact />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
+      <Route path="/reset-password" component={ResetPasswordPage} />
+      <ProtectedRoute path="/update-user" component={UpdateUserPage} />
+      <ProtectedRoute path="/edit-post/:postId" component={EditPostPage} />
+      {/* </ToastProvider> */}
+    </Switch>
+  );
 }
 
 export default App;
