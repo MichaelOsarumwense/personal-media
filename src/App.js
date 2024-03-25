@@ -14,7 +14,7 @@ function App() {
     <Switch>
       {/* <ToastProvider> */}
       <ProtectedRoute path="/" component={HomePage} exact />
-      <ProtectedRoute path="/home" component={HomePage} exact />
+      <ProtectedRoute path="/home" component={HomePage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
       <Route path="/reset-password" component={ResetPasswordPage} />
