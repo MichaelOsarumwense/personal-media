@@ -1,67 +1,60 @@
 const { getToken } = require('../../utils/windowsHelper');
-let posts;
-
 const axios = require('axios');
 
 const getPost = async (endpoint) => {
-	const response = await axios.request({
-		method: 'GET',
-		baseURL: endpoint,
-		url: '/posts',
-		params: {
-			sortBy: 'createdAt',
-			OrderBy: 'desc',
-		},
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: getToken(),
-		},
-	});
-	if (!response.statusText) {
-		return Promise.reject(response);
-	} else {
-		const object = await response;
-		return object;
-	}
+  try {
+    const response = await axios.get(`${endpoint}/posts`, {
+      params: {
+        sortBy: 'createdAt',
+        OrderBy: 'desc',
+      },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: getToken(),
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    throw error;
+  }
 };
 
 const getPostById = async (endpoint, id) => {
-	const response = await axios.request({
-		method: 'GET',
-		baseURL: endpoint,
-		url: `/posts/${id}`,
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/json',
-			Authorization: getToken(),
-		},
-	});
-	if (!response.statusText) {
-		return Promise.reject(response);
-	} else {
-		const object = await response;
-		return object;
-	}
+  try {
+    const response = await axios.get(`${endpoint}/posts/${id}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: getToken(),
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching post with id ${id}:`, error);
+    throw error;
+  }
 };
 
 const getPostFunction = async (setIsLoading, setLoadedPosts) => {
-	const url = process.env.REACT_APP_URL;
-	const dataObject = await getPost(url);
-	const data = await dataObject.data;
-	posts = [];
+  try {
+    const endpoint = process.env.REACT_APP_URL;
+    const posts = await getPost(endpoint);
 
-	for (const key in data) {
-		const post = {
-			id: key,
-			...data[key],
-		};
+    const formattedPosts = Object.entries(posts).map(([id, post]) => ({
+      id,
+      ...post,
+    }));
 
-		posts.push(post);
-	}
-
-	setIsLoading(false);
-	setLoadedPosts(posts);
+    setLoadedPosts(formattedPosts);
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  } finally {
+    setIsLoading(false);
+  }
 };
 
 module.exports = { getPostFunction, getPost, getPostById };
