@@ -1,7 +1,8 @@
 const axios = require('axios');
 const { getToken } = require('../windowsHelper');
 
-const updatePost = async (url, body, postId) => {
+const updatePost = async (url, body, postId, setSpinnerLoading) => {
+  setSpinnerLoading(true);
   const response = await axios.request({
     method: 'PATCH',
     baseURL: url,
@@ -15,9 +16,11 @@ const updatePost = async (url, body, postId) => {
   });
 
   if (response.status !== 200) {
+    setSpinnerLoading(false);
     return Promise.reject(response);
   } else {
     const object = await response;
+    setSpinnerLoading(false);
     return object;
   }
 };
