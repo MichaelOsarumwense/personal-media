@@ -1,5 +1,3 @@
-// eslint-disable-next-line
-
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import LoginLayout from '../components/layout/loginLayout';
@@ -29,24 +27,25 @@ function LoginPage() {
 
       if (!generateToken.ok) {
         setSpinnerLoading(false);
-        toast.error(generateToken.statusText, {
+        const errorMessage = await generateToken.json();
+        toast.error(errorMessage.error, {
           position: toast.POSITION.TOP_RIGHT,
         });
-        return generateToken.text().then((result) => Promise.reject(result));
-      } else {
-        const jsonResponse = await generateToken.json();
-        setToken('access_token', jsonResponse.token);
-        history.replace('/');
-        toast.success('Login successful', {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        return;
       }
-    } catch (e) {
-      setSpinnerLoading(false);
-      toast.error(e, {
+
+      const jsonResponse = await generateToken.json();
+      setToken('access_token', jsonResponse.token);
+      history.replace('/');
+      toast.success('Login successful', {
         position: toast.POSITION.TOP_RIGHT,
       });
-      console.log(e);
+    } catch (error) {
+      setSpinnerLoading(false);
+      console.error('Login Error:', error);
+      toast.error('An error occurred while logging in.', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
 
