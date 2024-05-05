@@ -8,7 +8,7 @@ function ImageModals(props) {
     link.href = props.profileImageUrl;
 
     // Set the download attribute with the desired filename
-    link.download = 'profile-image.jpg';
+    link.download = props.selectedFile.name;
     // Append the anchor element to the document body
     document.body.appendChild(link);
     // Click the anchor element to trigger the download
