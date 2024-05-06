@@ -15,6 +15,10 @@ function ImageModals(props) {
     link.click();
     // Remove the anchor element from the document body
     document.body.removeChild(link);
+
+    const closeModal = () => props.handleClose();
+
+    closeModal();
   };
 
   const disableDownloadButton = () => {

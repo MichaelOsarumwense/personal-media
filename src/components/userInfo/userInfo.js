@@ -39,7 +39,6 @@ export function UserInfoLeftColumn(props) {
 
   const updateImageHandler = () =>
     updateAvatarHandler(setSpinnerLoading, selectedFile, updatedAvatarState, handleClose);
-  const profileImg = avatar ? avatar : defaultImage;
   return (
     <div className="w3-col m3 sticky">
       <LoaderComponent spinnerLoading={spinnerLoading} />
