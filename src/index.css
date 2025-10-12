@@ -1,9 +1,11 @@
 #newPost {
-	white-space: pre-wrap;
-	word-break: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-primary);
+  line-height: 1.65;
 }
 
 #profileName {
-	white-space: nowrap;
-	overflow-y: scroll;
+  white-space: normal;
+  overflow: visible;
 }

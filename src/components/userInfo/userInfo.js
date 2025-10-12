@@ -5,7 +5,7 @@ import getAvatar from '../../utils/handlers/getAvatarHandler';
 import { getUserHandler } from '../../utils/handlers/getUserHandler';
 import updateAvatarHandler from '../../utils/handlers/updateAvatarHandler';
 import { defaultAvatar } from '../../utils/windowsHelper';
-import defaultImage from '../layout/images/01.png';
+import defaultImage from '../layout/images/default-avatar.svg';
 import LoaderComponent from '../loader/loader';
 import ImageModals from '../modal/imageModal';
 

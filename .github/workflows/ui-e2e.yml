@@ -1,0 +1,58 @@
+name: ui-e2e
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    name: Smoke @ ${{ matrix.project }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - chromium-desktop
+          - webkit-mobile
+    env:
+      UI_E2E_ENV: local
+      UI_E2E_BASE_URL: http://localhost:3000
+      UI_E2E_API_BASE_URL: http://localhost:3000
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.11.1
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npm run test:e2e:install
+
+      - name: Start application (adjust to match deployment target)
+        run: |
+          CI=true npm run start &
+          npx wait-on http://localhost:3000
+
+      - name: Run smoke tests
+        run: npm run test:e2e:smoke -- --project=${{ matrix.project }}
+
+      - name: Upload artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-e2e-${{ matrix.project }}
+          path: |
+            reports/ui-e2e
+            playwright-report

@@ -1,3 +1,5 @@
+import defaultAvatarAsset from '../components/layout/images/default-avatar.svg';
+
 const pageReload = () => window.location.reload();
 
 const setToken = (key, value) => {
@@ -20,7 +22,7 @@ const deleteToken = (token = 'access_token') => window.localStorage.removeItem(t
 
 const defaultAvatar = () => {
 	var pic = document.getElementById('profileImg');
-	pic.src = '../components/layout/images/01.png';
+	pic.src = defaultAvatarAsset;
 };
 
 const changeText = (id, text) => (document.getElementById(id).value = text);

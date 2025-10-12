@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import '../../components/layout/css/style.css';
 import '../../components/layout/css/w3.css';
 import { deleteToken } from '../../utils/windowsHelper';
 import { toast } from 'react-toastify';
@@ -37,6 +38,23 @@ function HomePageLayout(props) {
         </div>
       </div>
       <div id="pageContainer" className="w3-container w3-content">
+        <div className="ambient-panel ambient-panel--left" aria-hidden="true">
+          <div className="ambient-card ambient-card--story">
+            <span className="ambient-card__label">Stories</span>
+            <p className="ambient-card__text">Share a bold moment</p>
+          </div>
+          <div className="ambient-card ambient-card--gradient"></div>
+        </div>
+        <div className="ambient-panel ambient-panel--right" aria-hidden="true">
+          <div className="ambient-card ambient-card--pulse">
+            <span className="ambient-card__label">Live Now</span>
+            <p className="ambient-card__text">Hangout • Studio 4B</p>
+          </div>
+          <div className="ambient-card ambient-card--media">
+            <span className="ambient-card__label">Reels</span>
+            <p className="ambient-card__text">Fresh takes dropping hourly</p>
+          </div>
+        </div>
         <div className="w3-row">{props.children}</div>
       </div>
       <br />

@@ -1,0 +1,25 @@
+<svg width="320" height="320" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="avatarGradient" x1="16%" y1="8%" x2="84%" y2="92%">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="45%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="avatarGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.65)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="320" rx="80" fill="#0F172A"/>
+  <rect width="320" height="320" rx="80" fill="url(#avatarGradient)" opacity="0.75"/>
+  <circle cx="160" cy="122" r="70" fill="rgba(255,255,255,0.92)"/>
+  <path d="M160 180c-62 0-110 46-110 82 0 24 0 48 0 48h220s0-24 0-48c0-36-48-82-110-82z" fill="rgba(255,255,255,0.92)"/>
+  <circle cx="160" cy="122" r="53" fill="#1F2937"/>
+  <path d="M160 182c-44 0-80 30-96 62 30 22 64 34 96 34s66-12 96-34c-16-32-52-62-96-62z" fill="#1F2937"/>
+  <ellipse cx="160" cy="132" rx="44" ry="46" fill="#334155"/>
+  <path d="M160 108c-18 0-32 14-32 30 0 12 6 22 16 27v6c0 9 7 16 16 16s16-7 16-16v-6c10-5 16-15 16-27 0-16-14-30-32-30z" fill="#E2E8F0"/>
+  <ellipse cx="132" cy="134" rx="8" ry="10" fill="#1F2937" opacity="0.6"/>
+  <ellipse cx="188" cy="134" rx="8" ry="10" fill="#1F2937" opacity="0.6"/>
+  <path d="M138 208c14 12 30 18 46 18s32-6 46-18c-12-18-30-28-46-28s-34 10-46 28z" fill="#E2E8F0"/>
+  <rect x="30" y="30" width="260" height="260" rx="70" fill="url(#avatarGlow)" opacity="0.4"/>
+</svg>
