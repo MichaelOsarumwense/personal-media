@@ -13,4 +13,3 @@
   },
   "include": ["playwright/**/*.ts", "playwright.config.ts"]
 }
-

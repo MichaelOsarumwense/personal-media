@@ -21,7 +21,7 @@ const defaultDotEnv = process.env.UI_E2E_DOTENV ?? '.env';
 loadEnv({ path: path.resolve(process.cwd(), defaultDotEnv) });
 
 const fallbackBaseUrl =
-  process.env.UI_E2E_BASE_URL ?? 'http://localhost:3000';
+  process.env.UI_E2E_BASE_URL ?? 'https://personal-media.vercel.app';
 const fallbackApiUrl =
   process.env.REACT_APP_URL ??
   process.env.REACT_APP_API_URL ??

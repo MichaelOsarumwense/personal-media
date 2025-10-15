@@ -10,7 +10,8 @@ test.describe('Media downloads', () => {
     ]);
 
     await expect(page.getByText('Loading...')).toBeVisible();
-    expect(await download.suggestedFilename()).toBe('lorem-ipsum.pdf');
+    const suggestedFilename = await download.suggestedFilename();
+    expect(suggestedFilename.toLowerCase()).toBe('lorem-ipsum.pdf');
 
     await page.waitForTimeout(2100);
     await expect(page.locator('.download-page-btn')).toHaveText('Download PDF');

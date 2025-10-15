@@ -46,7 +46,7 @@ Run the most common workflows at the repository root:
 
 Tag tests by appending `@smoke`, `@canary`, etc. to their title—CI matrix jobs can use `--grep` to focus on tags.
 
-Local commits automatically execute the full suite via `npm run test:e2e`; set `HUSKY=0` when you need to bypass temporarily (e.g., WIP spikes).
+Local commits automatically execute `npx playwright test --project=chromium-desktop`; set `HUSKY=0` when you need to bypass temporarily (e.g., WIP spikes).
 
 ## Environment Management
 

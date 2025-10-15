@@ -108,6 +108,24 @@ test.describe('Profile management', () => {
   });
 
   test('uploads a new profile image', async ({ page, session, testUser }) => {
+    await page.addInitScript(() => {
+      try {
+        // Polyfill for Firefox where File.lastModifiedDate is undefined
+        if (!('lastModifiedDate' in File.prototype)) {
+          Object.defineProperty(File.prototype, 'lastModifiedDate', {
+            get() {
+              // @ts-ignore - runtime check
+              const lm = this.lastModified ?? Date.now();
+              return new Date(lm);
+            },
+            configurable: true,
+          });
+        }
+      } catch (_) {
+        /* noop */
+      }
+    });
+
     await loginAndLandOnHome(page, session, testUser);
 
     const initialSrc = await page.locator('#profileImg').getAttribute('src');
@@ -119,7 +137,7 @@ test.describe('Profile management', () => {
     const fileInput = modal.locator('input[type="file"]');
     await fileInput.setInputFiles(avatarUploadPath);
 
-    await expect(modal.locator('#fileName')).toContainText('01.png');
+    await expect(page.locator('#fileName')).toContainText('Filename: 01.png');
 
     const avatarRefresh = page.waitForResponse(
       (response) =>

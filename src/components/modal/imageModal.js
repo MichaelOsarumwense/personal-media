@@ -30,6 +30,24 @@ function ImageModals(props) {
     }
   };
 
+  const getLastModifiedLabel = () => {
+    if (!props.selectedFile) {
+      return 'Unknown';
+    }
+
+    const { lastModifiedDate, lastModified } = props.selectedFile;
+
+    if (lastModifiedDate instanceof Date) {
+      return lastModifiedDate.toLocaleDateString();
+    }
+
+    if (typeof lastModified === 'number') {
+      return new Date(lastModified).toLocaleDateString();
+    }
+
+    return 'Unknown';
+  };
+
   return (
     <Modal show={props.show}>
       <Modal.Header closeButton onClick={props.handleClose}>
@@ -49,7 +67,7 @@ function ImageModals(props) {
               <p id="fileName">Filename: {props.selectedFile.name}</p>
               <p>Filetype: {props.selectedFile.type}</p>
               <p>Size in KB: {props.selectedFile.size / 1000}</p>
-              <p>lastModifiedDate: {props.selectedFile.lastModifiedDate.toLocaleDateString()}</p>
+              <p>lastModifiedDate: {getLastModifiedLabel()}</p>
             </div>
           ) : (
             <p id="imageModalText">click to upload new image </p>
