@@ -24,13 +24,13 @@ function Posts(props) {
       .then((result) => {
         // If the post creation is successful, show a success toast
         toast.success('Post created successfully!', {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .catch((error) => {
         // If there's an error in post creation, show an error toast
         toast.error('Failed to create post. Please try again.', {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_CENTER,
         });
       })
       .finally(() => {

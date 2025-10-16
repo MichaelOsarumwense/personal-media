@@ -28,20 +28,20 @@ function RegisterPage() {
 			if (!createUser.ok) {
 				setSpinnerLoading(false);
 				toast.error(createUser.statusText, {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				return createUser.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
 				await history.replace('/login');
 				toast.success('Successful Registration', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
 			toast.error('server error', {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 			console.log(e);
 		}

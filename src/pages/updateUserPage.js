@@ -38,20 +38,20 @@ function UpdateUserPage() {
 			if (!updateUser.ok) {
 				setSpinnerLoading(false);
 				toast.error('User update failed.', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				return updateUser.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
 				history.replace('/');
 				toast.success('User update success.', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 			}
 		} catch (e) {
 			setSpinnerLoading(false);
 			toast.error(e, {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 			console.log(e);
 		}
@@ -72,7 +72,7 @@ function UpdateUserPage() {
 			setSpinnerLoading(false);
 			history.replace('/');
 			toast.error('Failed to delete user.', {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 			return Promise.reject('Failed to delete user');
 		} else {
@@ -81,7 +81,7 @@ function UpdateUserPage() {
 			await history.replace('/login');
 			history.replace('/');
 			toast.success('Success, user deleted', {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 		}
 	};

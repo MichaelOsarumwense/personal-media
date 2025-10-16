@@ -20,7 +20,7 @@ function EditPostForm(props) {
 			.then((result) => {
 				// If the post editing is successful, show a success toast
 				toast.success('Post edited successfully!', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				// Call the function to return to the home page or post list page
 				props.returnHome();
@@ -28,7 +28,7 @@ function EditPostForm(props) {
 			.catch((error) => {
 				// If there's an error in post editing, show an error toast
 				toast.error('Failed to edit post. Please try again.', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 			});
 	}

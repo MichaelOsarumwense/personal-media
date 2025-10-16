@@ -19,7 +19,7 @@ async function deletePostHandler(id, setSpinnerLoading, handleClose, fetchPost) 
 			setSpinnerLoading(false);
 			return deletePost.text().then((result) => {
 				toast.error(result, {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				return Promise.reject(result);
 			});
@@ -29,14 +29,14 @@ async function deletePostHandler(id, setSpinnerLoading, handleClose, fetchPost) 
 			fetchPost();
 			// Show a success toast after successful post deletion
 			toast.success('Post deleted successfully!', {
-				position: toast.POSITION.TOP_RIGHT,
+				position: toast.POSITION.TOP_CENTER,
 			});
 		}
 	} catch (e) {
 		console.log(e);
 		// Show an error toast on post deletion failure
 		toast.error('Error deleting post. Please try again.', {
-			position: toast.POSITION.TOP_RIGHT,
+			position: toast.POSITION.TOP_CENTER,
 		});
 	}
 }

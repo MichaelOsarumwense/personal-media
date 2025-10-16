@@ -27,13 +27,13 @@ function ResetPasswordPage() {
 			if (!passwordReset.ok) {
 				setSpinnerLoading(false);
 				toast.error('Failed to reset password. Please try again later.', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				return passwordReset.text().then((result) => Promise.reject(result));
 			} else {
 				setSpinnerLoading(false);
 				toast.success('Password reset successful! Please login with your new password.', {
-					position: toast.POSITION.TOP_RIGHT,
+					position: toast.POSITION.TOP_CENTER,
 				});
 				await history.replace('/login');
 			}

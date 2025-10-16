@@ -1,0 +1,10 @@
+<testsuite name="Mocha Tests" tests="8" failures="0" errors="0" skipped="0" timestamp="Thu, 16 Oct 2025 06:53:59 GMT" time="42.888">
+<testcase classname="Registration (optional, destructive)" name="registers a new user and redirects to login" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/optional/05-register.spec.js" time="4.395"/>
+<testcase classname="Posts CRUD" name="creates a new post and sees it" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/regression/02-posts.spec.js" time="4.999"/>
+<testcase classname="Posts CRUD" name="edits a post" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/regression/02-posts.spec.js" time="7.776"/>
+<testcase classname="Posts CRUD" name="deletes a post" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/regression/02-posts.spec.js" time="10.924"/>
+<testcase classname="Profile Update" name="updates user fields" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/regression/03-profile.spec.js" time="0.397"/>
+<testcase classname="Routing &#x26; Protection @smoke" name="redirects unauthenticated users to /login" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/smoke/00-routing.spec.js" time="0.322"/>
+<testcase classname="Authentication @smoke" name="logs in with valid credentials" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/smoke/01-auth.spec.js" time="1.995"/>
+<testcase classname="Logout @smoke" name="logs out to /login" file="/Users/michaelosarumwense/Desktop/github-Projects/personal-media/selenium/test/smoke/04-logout.spec.js" time="0.078"/>
+</testsuite>

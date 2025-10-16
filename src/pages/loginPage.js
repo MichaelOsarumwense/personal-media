@@ -29,7 +29,7 @@ function LoginPage() {
         setSpinnerLoading(false);
         const errorMessage = await generateToken.json();
         toast.error(errorMessage.error, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.TOP_CENTER,
         });
         return;
       }
@@ -38,13 +38,13 @@ function LoginPage() {
       setToken('access_token', jsonResponse.token);
       history.replace('/');
       toast.success('Login successful', {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_CENTER,
       });
     } catch (error) {
       setSpinnerLoading(false);
       console.error('Login Error:', error);
       toast.error('An error occurred while logging in.', {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_CENTER,
       });
     }
   };

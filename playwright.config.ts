@@ -11,7 +11,7 @@ export default defineConfig({
   },
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
-  workers: isCI ? undefined : 1,
+  workers: isCI ? undefined : 4,
   reporter: [
     ['line'],
     ['html', { outputFolder: 'reports/ui-e2e/html', open: 'never' }],

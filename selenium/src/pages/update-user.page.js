@@ -1,0 +1,28 @@
+import seleniumWebdriver from 'selenium-webdriver';
+import { BasePage } from '../core/base.page.js';
+const { By } = seleniumWebdriver;
+
+export class UpdateUserPage extends BasePage {
+  constructor(driver) {
+    super(driver);
+    this.name = By.css('#name');
+    this.email = By.css('#email');
+    this.secret = By.css('#secret');
+    this.address = By.css('#address');
+    this.dob = By.css('#dob');
+    this.hobbies = By.css('#hobbies');
+    this.events = By.css('#events');
+    this.submit = By.css('#submitButton');
+  }
+  async goto() { await this.open('/update-user'); }
+  async updateUser(user) {
+    if (user.name) await this.type(this.name, user.name);
+    if (user.email) await this.type(this.email, user.email);
+    if (user.secret) await this.type(this.secret, user.secret);
+    if (user.address) await this.type(this.address, user.address);
+    if (user.dob) await this.type(this.dob, user.dob);
+    if (user.hobbies) await this.type(this.hobbies, user.hobbies);
+    if (user.events) await this.type(this.events, user.events);
+    await this.click(this.submit);
+  }
+}
