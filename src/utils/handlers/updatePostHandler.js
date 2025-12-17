@@ -2,7 +2,7 @@ const axios = require('axios');
 const { getToken } = require('../windowsHelper');
 
 const updatePost = async (url, body, postId, setSpinnerLoading) => {
-  setSpinnerLoading(true);
+  if (typeof setSpinnerLoading === 'function') setSpinnerLoading(true);
   const response = await axios.request({
     method: 'PATCH',
     baseURL: url,
@@ -16,11 +16,11 @@ const updatePost = async (url, body, postId, setSpinnerLoading) => {
   });
 
   if (response.status !== 200) {
-    setSpinnerLoading(false);
+    if (typeof setSpinnerLoading === 'function') setSpinnerLoading(false);
     return Promise.reject(response);
   } else {
     const object = await response;
-    setSpinnerLoading(false);
+    if (typeof setSpinnerLoading === 'function') setSpinnerLoading(false);
     return object;
   }
 };

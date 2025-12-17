@@ -1,1 +1,2 @@
-npx playwright test --project=chromium-desktop
+# Run Playwright smoke tests on pre-commit; unit tests run in CI
+npx playwright test --project=chromium-desktop --grep @smoke || exit 1

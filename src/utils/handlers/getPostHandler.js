@@ -12,10 +12,12 @@ const getPost = async (endpoint) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: getToken(),
+        Connection: 'close',
       },
     });
 
-    return response.data;
+    // Return full axios response
+    return response;
   } catch (error) {
     console.error('Error fetching posts:', error);
     throw error;
@@ -29,10 +31,12 @@ const getPostById = async (endpoint, id) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: getToken(),
+        Connection: 'close',
       },
     });
 
-    return response.data;
+    // Return full axios response
+    return response;
   } catch (error) {
     console.error(`Error fetching post with id ${id}:`, error);
     throw error;
@@ -42,9 +46,8 @@ const getPostById = async (endpoint, id) => {
 const getPostFunction = async (setIsLoading, setLoadedPosts) => {
   try {
     const endpoint = process.env.REACT_APP_URL;
-    const posts = await getPost(endpoint);
-
-    const formattedPosts = Object.entries(posts).map(([id, post]) => ({
+    const postsResponse = await getPost(endpoint);
+    const formattedPosts = Object.entries(postsResponse.data).map(([id, post]) => ({
       id,
       ...post,
     }));

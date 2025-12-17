@@ -8,7 +8,7 @@ export async function EditPostHandler(postId, setDescription, setSpinnerLoading)
 
     const posts = await getPostById(url, postId);
 
-    await setDescription(posts.description);
+    await setDescription(posts.data.description);
     await setSpinnerLoading(false);
   } catch (e) {
     setSpinnerLoading(true);

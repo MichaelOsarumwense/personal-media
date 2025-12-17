@@ -60,7 +60,7 @@ function LoginForm(props) {
 			</div>
 			<ul className="list-login">
 				<li>
-					<Link id="resetPassword" to="/reset-Password" className="text-right">
+					<Link id="resetPassword" to="/reset-password" className="text-right">
 						<span className="fas fa-unlock-alt" aria-hidden="true"></span>
 						<span className="fas fa-key" aria-hidden="true"></span> Reset Password?
 					</Link>

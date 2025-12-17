@@ -1,5 +1,3 @@
-import defaultAvatarAsset from '../components/layout/images/default-avatar.svg';
-
 const pageReload = () => window.location.reload();
 
 const setToken = (key, value) => {
@@ -21,8 +19,19 @@ const getToken = (token = 'access_token') => {
 const deleteToken = (token = 'access_token') => window.localStorage.removeItem(token);
 
 const defaultAvatar = () => {
-	var pic = document.getElementById('profileImg');
-	pic.src = defaultAvatarAsset;
+	if (typeof window === 'undefined' || typeof document === 'undefined') return;
+	const pic = document.getElementById('profileImg');
+	if (!pic) return;
+	let asset;
+	try {
+		// Lazy-resolve the asset only in a browser-like environment
+		// eslint-disable-next-line global-require
+		asset = require('../components/layout/images/default-avatar.svg');
+	} catch (e) {
+		asset = null;
+	}
+	const url = asset && (asset.default || asset);
+	if (url) pic.src = url;
 };
 
 const changeText = (id, text) => (document.getElementById(id).value = text);
@@ -45,16 +54,16 @@ const generateUserToken = async (url, data) =>
 		body: JSON.stringify(data),
 	});
 
-export {
-	getToken,
-	hideElement,
-	populateDiv,
-	emptyDiv,
-	clearText,
-	changeText,
-	defaultAvatar,
-	deleteToken,
-	setToken,
-	pageReload,
-	generateUserToken,
+module.exports = {
+    getToken,
+    hideElement,
+    populateDiv,
+    emptyDiv,
+    clearText,
+    changeText,
+    defaultAvatar,
+    deleteToken,
+    setToken,
+    pageReload,
+    generateUserToken,
 };
