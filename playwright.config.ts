@@ -24,7 +24,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     viewport: devices['Desktop Chrome'].viewport,
   },
-  projects,
+  projects: projects[0].name === 'all' ? projects.slice(1) : projects,
   metadata: {
     environment: environment.name,
     runId: testRunId,
