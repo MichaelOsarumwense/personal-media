@@ -16,10 +16,8 @@ test.describe('Profile management', () => {
     await apiMock.primePosts(posts);
   });
 
-  const avatarUploadPath = path.resolve(
-    __dirname,
-    '../../../../src/components/layout/images/01.png',
-  );
+  // Use a concrete image file placed under playwright/assets/01.png
+  const avatarUploadPath = path.resolve(__dirname, '../../../assets/01.png');
 
   const loginAndLandOnHome = async (
     page: Page,
