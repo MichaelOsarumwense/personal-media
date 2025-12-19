@@ -44,11 +44,13 @@ test.describe('Profile management', () => {
     await page.fill('#address', updatedAddress);
     await page.fill('#events', updatedEvent);
 
+    // Avoid static waits: ensure button is interactable, then click and wait for PATCH
+    await expect(page.locator('#submitButton')).toBeEnabled();
     await Promise.all([
       page.waitForResponse(
         (response) => response.url().includes('/users/me') && response.request().method() === 'PATCH',
       ),
-      page.click('#submitButton'),
+      page.locator('#submitButton').click(),
     ]);
 
     await expect(page.getByText('User update success.')).toBeVisible();
@@ -83,7 +85,18 @@ test.describe('Profile management', () => {
   test('downloads the current profile image', async ({ page, session, testUser }) => {
     await loginAndLandOnHome(page, session, testUser);
 
-    await expect(page.locator('#profileImg')).toHaveAttribute('src', /blob:/);
+    // In real runs, new users may not have an avatar yet; ensure one exists first
+    const initialSrc = await page.locator('#profileImg').getAttribute('src');
+    if (!initialSrc || !/^blob:/.test(initialSrc)) {
+      await page.getByRole('link', { name: 'Update Image' }).click();
+      const modal = page.getByRole('dialog');
+      await expect(modal).toBeVisible();
+      const fileInput = modal.locator('input[type="file"]');
+      await fileInput.setInputFiles(avatarUploadPath);
+      await modal.getByRole('button', { name: 'Update' }).click();
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+      await expect(page.locator('#profileImg')).toHaveAttribute('src', /blob:/);
+    }
 
     const updateImageLink = page.getByRole('link', { name: 'Update Image' });
     await expect(updateImageLink).toBeVisible();
@@ -167,9 +180,21 @@ test.describe('Profile management', () => {
   }) => {
     await loginAndLandOnHome(page, session, testUser);
 
+    // Ensure an avatar exists first for real runs
+    let src = await page.locator('#profileImg').getAttribute('src');
+    if (!src || !/^blob:/.test(src)) {
+      await page.getByRole('link', { name: 'Update Image' }).click();
+      const modal = page.getByRole('dialog');
+      await expect(modal).toBeVisible();
+      const fileInput = modal.locator('input[type="file"]');
+      await fileInput.setInputFiles(avatarUploadPath);
+      await modal.getByRole('button', { name: 'Update' }).click();
+      await expect(page.getByRole('dialog')).toHaveCount(0);
+      src = await page.locator('#profileImg').getAttribute('src');
+    }
+
     await expect(page.locator('#profileImg')).toHaveAttribute('src', /blob:/);
-    const initialSrc = await page.locator('#profileImg').getAttribute('src');
-    expect(initialSrc).not.toBeNull();
+    const initialSrc = src;
 
     await page.getByRole('link', { name: 'Update Image' }).click();
     const modal = page.getByRole('dialog');

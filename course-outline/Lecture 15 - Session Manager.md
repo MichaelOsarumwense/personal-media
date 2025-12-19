@@ -25,7 +25,11 @@ await this.page.route('**/users/login', async (route) => {
 Failure Stub (excerpt)
 ```ts
 await this.page.route('**/users/login', async (route) => {
-  await route.fulfill({ status: 401, contentType: 'application/json', body: JSON.stringify({ error: 'Invalid credentials' }) });
+  await route.fulfill({
+    status: 401,
+    contentType: 'application/json',
+    body: JSON.stringify({ error: 'Username or Password Incorrect' }),
+  });
 });
 ```
 
@@ -45,6 +49,9 @@ await login.login(testUser);
 Validation
 - UI login completes with a fake token; app redirects to home.
 
+Notes
+- Parity policy: mocked failure copy must match the real backend/UI exactly ("Username or Password Incorrect").
+- Toggle UI login stubs via `UI_E2E_STUB_LOGIN=true|false` (default true). In real runs set to false.
+
 Deliverables
 - Confidence using route stubs for targeted flows.
-

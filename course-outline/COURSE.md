@@ -59,3 +59,24 @@ Each lecture file in this folder contains:
 - Validation (what to observe in UI and trace)
 - Deliverables & optional homework
 
+Execution Modes & Scripts
+
+- Mocked (UI-only, fast, deterministic)
+  - `npm run test:e2e` (Chromium)
+  - `npm run test:e2e:smoke` (Chromium, @smoke only)
+  - `npm run test:e2e:mocked` / `:mocked:smoke` (explicit)
+  - `npm run test:e2e:mocked:all` (all configured browsers)
+- Real (full integration against your API)
+  - `npm run test:e2e:real` or `:real:smoke`
+  - Requires `UI_E2E_BASE_URL` (and `UI_E2E_API_BASE_URL` for fixture API calls)
+  - Auto-creates a user per run and deletes it on teardown
+- Hybrid (real API, UI login stubbed)
+  - `npm run test:e2e:hybrid` or `:hybrid:smoke`
+
+Toggles (env)
+
+- `UI_E2E_USE_MOCKS=true|false` (default true) — enable/disable ApiMocker
+- `UI_E2E_STUB_LOGIN=true|false` (default true) — enable/disable UI login route stubs
+
+Parity policy
+- Mocked responses mirror real API contract and UI copy exactly. Example: invalid login → `Username or Password Incorrect` (not a generic message). This keeps assertions identical across mocked and real runs.

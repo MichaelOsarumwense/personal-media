@@ -28,10 +28,13 @@ Defaults (from repo)
 Usage
 - Run smoke against local UI: `UI_E2E_BASE_URL=http://localhost:3000 npm run test:e2e:smoke`
 - Switch env via file: `UI_E2E_DOTENV=.env.staging npm run test:e2e`
+- Toggle modes via scripts:
+  - Mocked: `npm run test:e2e:mocked[:smoke|:all]`
+  - Hybrid (real API, login stubbed): `npm run test:e2e:hybrid[:smoke]`
+  - Real (full integration): `npm run test:e2e:real[:smoke]` with `UI_E2E_BASE_URL` (+ `UI_E2E_API_BASE_URL`)
 
 Validation
 - `console.log(environment)` in a spec (temporarily) to verify resolved config.
 
 Deliverables
 - Confidence in directing tests at different targets with minimal changes.
-

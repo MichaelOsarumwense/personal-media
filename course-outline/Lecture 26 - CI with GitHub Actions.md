@@ -24,11 +24,8 @@ steps:
     with: { node-version: 20.11.1, cache: npm }
   - run: npm ci
   - run: npm run test:e2e:install
-  - name: Start application
-    run: |
-      CI=true npm run start &
-      npx wait-on http://localhost:3000
-  - run: npm run test:e2e:smoke -- --project=${{ matrix.project }}
+  - name: Run mocked smoke (no app needed)
+    run: npm run test:e2e:mocked:smoke -- --project=${{ matrix.project }}
   - uses: actions/upload-artifact@v4
     if: always()
     with:
@@ -41,6 +38,10 @@ steps:
 Validation
 - PRs show smoke results and attached HTML reports and traces.
 
+Variants
+- Real smoke against staging:
+  - Set `UI_E2E_BASE_URL` (and optionally `UI_E2E_API_BASE_URL`) in job env.
+  - Run `npm run test:e2e:real:smoke -- --project=${{ matrix.project }}`
+
 Deliverables
 - A CI job you can extend with more projects or tags later.
-

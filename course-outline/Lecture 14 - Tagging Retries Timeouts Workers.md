@@ -34,9 +34,13 @@ Filter By Tag
 - Smoke only: `npx playwright test --grep @smoke`
 - Exclude quarantine: `npx playwright test --grep-invert @quarantine`
 
+Modes quick ref
+- Mocked (default local): `npm run test:e2e` or `:mocked`
+- Real end-to-end: `npm run test:e2e:real` (requires UI_E2E_BASE_URL [+ API_BASE_URL])
+- Hybrid: `npm run test:e2e:hybrid`
+
 Validation
 - Smoke runs fast and consistently; failing specs are not retried locally.
 
 Deliverables
 - A tagging guide and confidence configuring retries/timeouts/workers.
-
