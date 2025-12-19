@@ -41,6 +41,7 @@
     "test:e2e:hybrid:smoke": "cross-env UI_E2E_USE_MOCKS=false UI_E2E_STUB_LOGIN=true playwright test --project=chromium-desktop --grep @smoke",
     "test:e2e:debug": "playwright test --project=chromium-desktop --debug",
     "test:e2e:trace": "playwright show-trace",
+    "test:e2e:report": "playwright show-report reports/ui-e2e/html",
     "test:e2e:codegen": "playwright codegen",
     "test:e2e:install": "playwright install --with-deps",
     "prepare": "husky",

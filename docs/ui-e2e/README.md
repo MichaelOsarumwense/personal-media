@@ -41,6 +41,7 @@ Run the most common workflows at the repository root:
 - `npm run test:e2e:smoke` – targeted execution for specs tagged with `@smoke`; ideal for PR gating.
 - `npm run test:e2e:debug` – headed mode with live inspector.
 - `npm run test:e2e:trace` – view a saved trace (`--trace on` or `retain-on-failure`).
+- `npm run test:e2e:report` – open the last HTML report (`reports/ui-e2e/html`).
 - `npm run test:e2e:codegen` – open the Playwright codegen recorder.
 - `npm run test:e2e:install` – install/update browsers (pin in CI bootstrap).
 
