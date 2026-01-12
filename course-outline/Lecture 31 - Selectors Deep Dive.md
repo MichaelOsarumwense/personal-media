@@ -7,7 +7,7 @@ Objective
 
 Key Takeaways
 - Prefer: roles > accessible labels/placeholders > data-testid > IDs > CSS/XPath.
-- Use locator APIs (`getBy*`, `locator`) for auto-waiting and stability.
+- Use locator API (`getBy*`, `locator`) for auto-waiting and stability.
 - Scope within containers for clarity.
 
 Practice Spec (runnable)
