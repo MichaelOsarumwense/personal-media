@@ -3,7 +3,7 @@
 Estimated runtime: 10–12 minutes
 
 Objective
-- Run Playwright smoke tests in GitHub Actions across a small matrix and upload artifacts.
+- Create a GitHub Actions workflow from scratch to run Playwright smoke tests across a small matrix and upload artifacts.
 
 Prerequisites
 - Lectures 01–25.
@@ -11,10 +11,19 @@ Prerequisites
 Key Concepts
 - Node setup, Playwright browsers install, app boot, wait-on, artifact upload.
 
-Files
-- .github/workflows/ui-e2e.yml:1
+Start State
+- No CI workflow file exists.
 
-Workflow (high level)
+Outcome
+- A working workflow that installs browsers, runs mocked smoke, and uploads artifacts.
+
+Files
+- .github/workflows/ui-e2e.yml
+
+Steps
+1) Add workflow file
+   - Path: `.github/workflows/ui-e2e.yml`
+   - Contents (example):
 ```yaml
 strategy:
   matrix: { project: [chromium-desktop, webkit-mobile] }

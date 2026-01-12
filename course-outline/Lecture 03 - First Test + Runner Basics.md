@@ -3,40 +3,48 @@
 Estimated runtime: 8–10 minutes
 
 Objective
-- Write/understand a basic Playwright test and core runner concepts.
-- Readable locators using roles; see auto-waiting in action.
+- Write your first Playwright test from scratch and learn core runner concepts.
 
 Prerequisites
 - Lectures 01–02; Node 20+, npm 10+.
 
+Start State
+- Playwright configured (Lecture 02); no tests yet.
+
+Outcome
+- A passing smoke test that loads the login page and asserts key elements.
+
 Key Concepts
 - `test`, `expect`, role-based locators, auto-waiting, `test.step`.
 
-Files
-- playwright/tests/smoke/authentication/login.spec.ts:1
-- playwright/models/login.model.ts:1
+Steps
+1) Create the smoke spec file
+   - Path: `playwright/tests/smoke/authentication/login.spec.ts`
+   - Contents:
+     ```ts
+     import { test, expect } from '@playwright/test';
 
-What The Test Does
-- Stubs successful login via `SessionManager` so we can focus on UI.
-- Enters credentials and asserts redirect + basic page content.
+     test.describe('Authentication', () => {
+       test('renders login form @smoke', async ({ page }) => {
+         await test.step('navigate to login', async () => {
+           await page.goto('/login');
+         });
 
-Snippet (login.spec extract)
-```ts
-await session.stubSuccessfulLogin();
-await login.goto();
-await login.login(testUser);
-await test.step('wait for redirect to home', async () => {
-  await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
-});
-```
+         await test.step('assert UI elements', async () => {
+           await expect(page.getByRole('link', { name: 'Private Media' })).toBeVisible();
+           await expect(page.locator('#email')).toBeVisible();
+           await expect(page.locator('#password')).toBeVisible();
+           await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+         });
+       });
+     });
+     ```
 
-Run It
-- `npm run test:e2e:smoke -- --project=chromium-desktop --grep @smoke`
+2) Run it
+   - `npm run test:e2e:smoke -- --project=chromium-desktop`
 
-Validation
-- Test passes; HTML report shows one passing spec.
-- Opening the trace highlights the locators and network stub.
+Validate
+- Spec passes and an HTML report is available at `reports/ui-e2e/html`.
 
-Deliverables
-- Comfort with the test runner and first green spec.
-
+Next
+- In Lecture 06 we’ll refine selectors; by Lecture 10 we’ll refactor this spec to use a Login model.

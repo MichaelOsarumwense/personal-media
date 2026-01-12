@@ -27,7 +27,8 @@ test('allows a user to login via the UI flow @smoke', async ({ page, session, te
   });
 
   await test.step('assert home landed', async () => {
-    await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    // SPA-friendly: assert URL instead of waiting for load
+    await expect(page).toHaveURL(/\/$/);
     await home.expectHeroBanner();
   });
 });
@@ -38,4 +39,3 @@ Validation
 
 Deliverables
 - Style guide: small tests, clear steps, reusable model methods.
-

@@ -3,7 +3,7 @@
 Estimated runtime: 10–12 minutes
 
 Objective
-- Validate avatar lifecycle: initial fetch, upload toggling, and remove to default fallback.
+- Build tests for avatar lifecycle from scratch: initial fetch, upload toggling, and remove to default fallback.
 
 Prerequisites
 - Lectures 01–21.
@@ -11,9 +11,15 @@ Prerequisites
 Key Concepts
 - Binary content handling, object URLs (`blob:`), 404 as “no avatar” signal.
 
+Start State
+- ApiMocker registered; profile spec exists.
+
+Outcome
+- Deterministic avatar upload/remove checks with binary responses and clear UI assertions.
+
 Files
-- playwright/tests/regression/profile/profile-management.spec.ts:1
-- playwright/services/apiMocker.ts (avatar route):1
+- playwright/tests/regression/profile/profile-management.spec.ts
+- playwright/services/apiMocker.ts (avatar route)
 
 Initial Load Assertion
 ```ts
@@ -23,7 +29,8 @@ await expect(page.locator('#profileImg')).toHaveAttribute('src', /blob:/);
 Remove → Default Fallback (excerpt)
 ```ts
 await page.getByRole('link', { name: 'Update Image' }).click();
-const reload = page.waitForNavigation({ waitUntil: 'load' });
+// No full navigations expected on modal actions in SPA; avoid waiting for 'load'
+// Keep deterministic waits to network + UI state changes instead.
 const avatarRemovalFetch = page.waitForResponse(
   (r) => r.url().includes('/users/me/avatar') && r.request().method() === 'GET' && r.status() === 404,
 );
@@ -31,7 +38,7 @@ await Promise.all([
   page.waitForResponse((r) => r.url().includes('/users/me/avatar') && r.request().method() === 'DELETE'),
   page.getByRole('button', { name: 'Remove Profile Photo' }).click(),
 ]);
-await reload; await avatarRemovalFetch;
+await avatarRemovalFetch;
 await expect(page.locator('#profileImg')).not.toHaveAttribute('src', /blob:/);
 await expect(page.locator('#profileImg')).toHaveAttribute('src', /default-avatar/);
 ```
@@ -44,4 +51,3 @@ Validation
 
 Deliverables
 - A reliable approach to binary media in UI tests.
-

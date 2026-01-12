@@ -1,16 +1,6 @@
 import { expect, test } from '../../../fixtures/test-fixtures';
 import { buildCredentials } from '../../../utils/testData';
 
-const buildResetPayload = () => {
-  const creds = buildCredentials();
-  return {
-    email: creds.email,
-    password: creds.password,
-    // Must match the secret used when creating users via fixture in real/hybrid mode
-    secret: 'reset-secret',
-  };
-};
-
 test.describe('Password Reset', () => {
   test.beforeEach(async ({ apiMock }) => {
     await apiMock.configurePasswordReset();

@@ -26,10 +26,10 @@ await Promise.all([
 ]);
 ```
 
-URL Wait Pattern
+URL Wait Pattern (SPA‑friendly)
 ```ts
-await test.step('wait for redirect to home', async () => {
-  await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+await test.step('redirects to home', async () => {
+  await expect(page).toHaveURL(/\/$/);
 });
 ```
 
@@ -54,4 +54,3 @@ Validation
 
 Deliverables
 - A reliability checklist implemented across your specs.
-

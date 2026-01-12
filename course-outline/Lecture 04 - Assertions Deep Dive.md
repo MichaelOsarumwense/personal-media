@@ -8,6 +8,15 @@ Objective
 Prerequisites
 - Lectures 01–03.
 
+Start State
+- You have a simple smoke spec that renders the login page (Lecture 03).
+
+Outcome
+- High‑signal assertions added with a SPA‑friendly URL check.
+
+Why this matters
+- Good assertions document intent and reduce flake.
+
 Key Concepts
 - toBeVisible, toHaveText, toHaveURL, toHaveAttribute, soft assertions.
 
@@ -15,7 +24,7 @@ Files
 - playwright/models/login.model.ts:1
 - playwright/models/home.model.ts:1
 
-Examples
+Steps
 ```ts
 // login.model.ts – asserting the page is ready
 await expect(this.page.getByRole('link', { name: 'Private Media' })).toBeVisible();
@@ -35,7 +44,7 @@ const avatar = this.page.locator('#profileImg');
 await expect(avatar).toHaveAttribute('src', /^(blob:|.*default-avatar.*)$/);
 ```
 
-Soft Assertions (advanced):
+Optional: Soft Assertions
 ```ts
 // Useful when continuing after non-critical checks
 await expect.soft(this.page.getByText('Stories').first()).toBeVisible();
@@ -46,4 +55,3 @@ Validation
 
 Deliverables
 - A short list of preferred assertions and when to use them.
-

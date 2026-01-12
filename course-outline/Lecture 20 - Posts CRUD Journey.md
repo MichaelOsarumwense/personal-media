@@ -3,7 +3,7 @@
 Estimated runtime: 10–12 minutes
 
 Objective
-- Implement a full timeline scenario: create a post, edit it, and delete it, validating UI updates and network events.
+- Build a posts CRUD journey from scratch: create, edit, delete, and validate via UI + network events.
 
 Prerequisites
 - Lectures 01–19.
@@ -11,10 +11,16 @@ Prerequisites
 Key Concepts
 - `waitForResponse` targeting method + URL; extracting route params (postId); toast verification.
 
-Files
-- playwright/tests/regression/posts/posts-crud.spec.ts:1
+Start State
+- You have models/fixtures/mocks from prior lectures.
 
-Flow (excerpt already in repo)
+Outcome
+- A deterministic CRUD spec that uses response gating and SPA‑friendly URL asserts.
+
+Files
+- playwright/tests/regression/posts/posts-crud.spec.ts
+
+Flow (build now)
 ```ts
 // Create
 await page.fill('#postText', 'My first post');
@@ -27,10 +33,8 @@ await expect(page.getByText('Post created successfully!')).toBeVisible();
 // Edit
 const editHref = await page.locator('#editButton').first().getAttribute('href');
 const postId = editHref?.split('/').pop() ?? '';
-await Promise.all([
-  page.waitForURL(`**/edit-post/${postId}`),
-  page.locator('#editButton').first().click(),
-]);
+await page.locator('#editButton').first().click();
+await expect(page).toHaveURL(new RegExp(`/edit-post/${postId}$`));
 await Promise.all([
   page.waitForResponse((r) => r.url().includes(`/posts/${postId}`) && r.request().method() === 'PATCH'),
   page.click('button:has-text("Submit")'),
@@ -52,4 +56,3 @@ Validation
 
 Deliverables
 - A robust CRUD journey pattern applicable to similar timelines.
-

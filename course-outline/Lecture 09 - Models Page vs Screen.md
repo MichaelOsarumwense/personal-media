@@ -3,7 +3,7 @@
 Estimated runtime: 8–10 minutes
 
 Objective
-- Choose a modeling style and apply it to this app for clarity and reuse.
+- Choose a modeling style and prepare to apply it to this app for clarity and reuse.
 
 Prerequisites
 - Lectures 01–08.
@@ -12,9 +12,11 @@ Key Concepts
 - Screen/Feature Models over classic Page Objects: fewer files, intent-revealing methods.
 - Assertions live in models for key “page ready” checks.
 
-Existing Models
-- playwright/models/login.model.ts:1 – goto(), login(), assertIsLoaded()
-- playwright/models/home.model.ts:1 – expectHeroBanner(), expectFooter()
+Start State
+- No models yet (we create them starting in Lecture 10).
+
+Outcome
+- A simple, intention‑revealing model pattern you’ll follow in upcoming lectures.
 
 Pattern
 ```ts
@@ -27,11 +29,13 @@ class ExampleModel {
 ```
 
 Exercise
-- Add a new method to `HomeModel`, e.g. `expectAvatarLoaded()` that asserts `#profileImg` has a blob: or default src.
+- Create a placeholder model (optional) to practice the pattern:
+  - Path: `playwright/models/example.model.ts`
+  - Minimal methods: `goto()` and `assertIsLoaded()` with a single visible heading assertion.
+  - You’ll formalize `LoginModel` in Lecture 10 and `HomeModel` in Lecture 18.
 
 Validation
 - Update a smoke spec to call the new assertion; run `npm run test:e2e:smoke`.
 
 Deliverables
 - A clear convention: screen models with goto/assertions and small action methods.
-

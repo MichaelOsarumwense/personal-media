@@ -28,14 +28,15 @@ test.describe('Profile management', () => {
     const login = new LoginModel(page);
     await login.goto();
     await login.login(credentials);
-    await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveURL(/\/$/);
   };
 
   test('updates profile details', async ({ page, session, testUser }) => {
     await loginAndLandOnHome(page, session, testUser);
 
     await page.locator('#userProfile').click();
-    await page.waitForURL('**/update-user');
+    await expect(page).toHaveURL(/\/update-user$/);
+    await expect(page.locator('#deleteButton')).toBeVisible();
 
     await expect(page.locator('#name')).not.toBeDisabled();
     const updatedAddress = '88 Market Street, San Francisco';
@@ -54,7 +55,7 @@ test.describe('Profile management', () => {
     ]);
 
     await expect(page.getByText('User update success.')).toBeVisible();
-    await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveURL(/\/$/);
 
     await expect(page.locator('#profileAddress')).toContainText(updatedAddress);
     await expect(page.locator('#profileEvents')).toContainText(updatedEvent);
@@ -64,9 +65,11 @@ test.describe('Profile management', () => {
     await loginAndLandOnHome(page, session, testUser);
 
     await page.locator('#userProfile').click();
-    await page.waitForURL('**/update-user');
+    await expect(page).toHaveURL(/\/update-user$/);
+    await expect(page.locator('#deleteButton')).toBeVisible();
 
     await page.click('#deleteButton');
+    await expect(page.locator('#confirmDeleteRef')).toBeVisible();
 
     await Promise.all([
       page.waitForResponse(

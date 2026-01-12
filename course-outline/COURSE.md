@@ -80,3 +80,8 @@ Toggles (env)
 
 Parity policy
 - Mocked responses mirror real API contract and UI copy exactly. Example: invalid login → `Username or Password Incorrect` (not a generic message). This keeps assertions identical across mocked and real runs.
+
+Prerequisites (quick)
+- Install deps and browsers: `npm ci` then `npm run test:e2e:install`.
+- For real/hybrid runs, set `UI_E2E_BASE_URL` (and `UI_E2E_API_BASE_URL` if fixtures call the API).
+- Ensure `playwright/assets/01.png` exists for avatar tests. On macOS, if Chromium won’t launch due to OS security, allow the Playwright browser binary in System Settings or run outside restricted sandboxes.

@@ -3,10 +3,19 @@
 Estimated runtime: 10–12 minutes
 
 Objective
-- Use Playwright’s debugging tools to understand and fix failures fast.
+- Practice Playwright’s debugging tools to understand and fix failures fast.
 
 Prerequisites
 - Lectures 01–04.
+
+Start State
+- You can run the smoke spec; reporters configured.
+
+Outcome
+- You can run headed debug, open traces, and capture artifacts on failure.
+
+Why this matters
+- Quick feedback loops cut triage time and increase confidence.
 
 Key Concepts
 - `--debug`, trace viewer, screenshots/video on failure.
@@ -28,4 +37,3 @@ Validation
 
 Deliverables
 - A repeatable workflow for investigating test failures.
-

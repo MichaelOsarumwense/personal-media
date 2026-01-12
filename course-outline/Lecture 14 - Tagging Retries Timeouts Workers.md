@@ -39,6 +39,9 @@ Modes quick ref
 - Real end-to-end: `npm run test:e2e:real` (requires UI_E2E_BASE_URL [+ API_BASE_URL])
 - Hybrid: `npm run test:e2e:hybrid`
 
+SPA routing tip
+- For client-side navigations, assert `expect(page).toHaveURL(...)` and a page-unique element instead of waiting for `load`.
+
 Validation
 - Smoke runs fast and consistently; failing specs are not retried locally.
 

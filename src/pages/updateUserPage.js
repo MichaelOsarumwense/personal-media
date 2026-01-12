@@ -79,7 +79,6 @@ function UpdateUserPage() {
 			setSpinnerLoading(false);
 			deleteToken('access_token');
 			await history.replace('/login');
-			history.replace('/');
 			toast.success('Success, user deleted', {
 				position: toast.POSITION.TOP_CENTER,
 			});

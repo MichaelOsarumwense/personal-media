@@ -3,17 +3,23 @@
 Estimated runtime: 8–10 minutes
 
 Objective
-- Manage environments (local/staging/production) via a TypeScript resolver and dotenv.
+- Add a minimal environment resolver with dotenv and wire it into fixtures.
 
 Prerequisites
 - Lectures 01–11.
 
 Key Concepts
-- `.env` loading, `UI_E2E_ENV`, baseURL/apiBaseURL resolution, credentials per env.
+- `.env` loading, base URL/API URL resolution, credentials per env.
+
+Start State
+- Basic fixtures from Lecture 11; no env resolver yet.
+
+Outcome
+- A small `environment` export you can import in fixtures/services.
 
 Files
-- playwright/config/env.ts:1
-- .env:1
+- playwright/config/env.ts
+- .env
 
 Important Variables
 - `UI_E2E_ENV` – target env (defaults to `local`).
@@ -21,17 +27,50 @@ Important Variables
 - `UI_E2E_API_BASE_URL` – API origin override.
 - `UI_E2E_USER_EMAIL` / `UI_E2E_USER_PASSWORD` – default credentials.
 
-Defaults (from repo)
-- Fallback UI: `https://personal-media.vercel.app`
-- Fallback API: `.env REACT_APP_URL` or `http://localhost:3001`
+Steps
+1) Create env resolver
+   - Path: `playwright/config/env.ts`
+   - Contents (minimal):
+     ```ts
+     import * as dotenv from 'dotenv';
+     dotenv.config({ path: process.env.UI_E2E_DOTENV || '.env' });
 
-Usage
-- Run smoke against local UI: `UI_E2E_BASE_URL=http://localhost:3000 npm run test:e2e:smoke`
-- Switch env via file: `UI_E2E_DOTENV=.env.staging npm run test:e2e`
-- Toggle modes via scripts:
-  - Mocked: `npm run test:e2e:mocked[:smoke|:all]`
-  - Hybrid (real API, login stubbed): `npm run test:e2e:hybrid[:smoke]`
-  - Real (full integration): `npm run test:e2e:real[:smoke]` with `UI_E2E_BASE_URL` (+ `UI_E2E_API_BASE_URL`)
+     export type IdentityCredentials = { email: string; password: string };
+
+     const UI_E2E_BASE_URL = process.env.UI_E2E_BASE_URL || 'http://localhost:3000';
+     const UI_E2E_API_BASE_URL = process.env.UI_E2E_API_BASE_URL || process.env.REACT_APP_URL || 'http://localhost:3001';
+
+     const credentials = {
+       primary: {
+         email: process.env.UI_E2E_USER_EMAIL || 'user@example.com',
+         password: process.env.UI_E2E_USER_PASSWORD || 'Password123!',
+       } satisfies IdentityCredentials,
+     };
+
+     export const environment = { baseURL: UI_E2E_BASE_URL, apiBaseURL: UI_E2E_API_BASE_URL, credentials };
+     ```
+
+2) Use env in fixtures
+   - Update `playwright/fixtures/test-fixtures.ts` to pull from env:
+     ```ts
+     import { environment, type IdentityCredentials } from '../config/env';
+     // ... then use: await use({ ...environment.credentials.primary });
+     ```
+
+3) .env sample
+   - Add (or confirm) `.env` with:
+     ```env
+     UI_E2E_BASE_URL=http://localhost:3000
+     UI_E2E_API_BASE_URL=http://localhost:3001
+     UI_E2E_USER_EMAIL=user@example.com
+     UI_E2E_USER_PASSWORD=Password123!
+     ```
+
+Validate
+- Temporarily log `environment` from a spec to verify values resolve.
+
+Instructor notes
+- Keep this minimal now; later lectures introduce ApiClient/SessionManager and mocks.
 
 Validation
 - `console.log(environment)` in a spec (temporarily) to verify resolved config.

@@ -3,7 +3,7 @@
 Estimated runtime: 8–10 minutes
 
 Objective
-- Consume Playwright’s HTML/JSON reports and use trace to triage failures quickly.
+- Configure reporters from scratch and practice quick trace triage.
 
 Prerequisites
 - Lectures 01–27.
@@ -12,8 +12,14 @@ Key Concepts
 - HTML report for interactive analysis; JSON for CI summaries/dashboards.
 - Trace links help pivot from summary → detailed step view.
 
+Start State
+- Basic Playwright config exists; add/reporters and triage workflow.
+
+Outcome
+- HTML + JSON reports configured, with a simple summary script and a repeatable trace triage process.
+
 Files
-- playwright.config.ts:1 (reporters configured)
+- playwright.config.ts (reporters configured)
 - reports/ui-e2e/report.json (output after a run)
 
 Config (excerpt)
@@ -25,8 +31,15 @@ reporter: [
 ],
 ```
 
-Open HTML Report
-- After a run: `npx playwright show-report reports/ui-e2e/html`
+Steps
+1) Configure reporters
+   - In `playwright.config.ts` add `html` and `json` reporters (see snippet above).
+2) Run any spec to produce reports
+3) Open HTML report
+   - `npx playwright show-report reports/ui-e2e/html`
+
+Tip
+- When triaging trace for SPA navigations, prefer seeing `expect(page).toHaveURL(...)` and element assertions over `waitForURL(..., { waitUntil: 'load' })`, which can hang on client-side routes.
 
 Quick JSON Summary Script (example)
 ```ts
@@ -49,4 +62,3 @@ Validation
 
 Deliverables
 - A reporting workflow that surfaces high-signal summaries and links to deep traces.
-

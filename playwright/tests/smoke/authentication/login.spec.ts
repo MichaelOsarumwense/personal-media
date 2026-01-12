@@ -21,8 +21,8 @@ test.describe('Authentication', () => {
     await login.goto();
     await login.login(testUser);
 
-    await test.step('wait for redirect to home', async () => {
-      await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await test.step('redirects to home', async () => {
+      await expect(page).toHaveURL(/\/$/);
     });
 
     await home.expectHeroBanner();

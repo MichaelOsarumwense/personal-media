@@ -26,7 +26,7 @@ test.describe('Timeline management', () => {
     await login.goto();
     await login.login(testUser);
 
-    await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveURL(/\/$/);
     await home.expectHeroBanner();
 
     const newPostCopy = 'Building a premium UI automation framework';
@@ -60,7 +60,7 @@ test.describe('Timeline management', () => {
     ]);
 
     await expect(page.getByText('Post edited successfully!')).toBeVisible();
-    await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await expect(page).toHaveURL(/\/$/);
     await expect(page.getByText(updatedCopy)).toBeVisible();
 
     await page.locator('#delete').first().click();

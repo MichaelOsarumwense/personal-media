@@ -3,37 +3,43 @@
 Estimated runtime: 8–10 minutes
 
 Objective
-- Get comfortable with the existing Playwright + TypeScript setup in this repo.
-- Learn how env and projects are configured for multi-device testing.
+- Initialize Playwright + TypeScript from scratch and run a first smoke.
 
 Prerequisites
 - Lecture 01; Node 20+, npm 10+, Git.
 
-Key Concepts
-- `playwright.config.ts`, projects, reporters, artifacts.
-- Environment resolver in `playwright/config/env.ts`.
-- Scripts in `package.json` for E2E workflows.
+Start State
+- Empty `playwright/` folder; no Playwright config or tests yet.
 
-Files To Open
-- playwright.config.ts:1
-- playwright/config/env.ts:1
-- playwright/config/projects.ts:1
-- package.json:1 (scripts section)
+Outcome
+- A working Playwright TS setup with config, env, and scripts.
 
-Quick Tour
-- Config sets testDir, reporters (line, html, json), artifacts dir, and devices.
-- `env.ts` loads `.env`, resolves UI and API base URLs, and credentials.
-- Projects file defines chromium/firefox/webkit-mobile contexts.
+Steps
+- Install tooling
+  - `npm init`
+  - `npm install -D @playwright/test typescript ts-node dotenv cross-env`
+  - `npm init playwright@latest`
+- Create folders
+  - `mkdir -p ./{fixtures,models,services,utils,assets,config}`
+- Add TS config for tests (tsconfig.playwright.json)
+  - Minimal:
+    ```json
+    { "compilerOptions": { "target": "ES2020", "module": "commonjs", "strict": true, "types": ["@playwright/test"] }, "include": ["playwright/**/*.ts"] }
+    ```
+- Add Playwright config (playwright.config.ts)
+  - Minimal:
+    ```ts
+    import { defineConfig, devices } from '@playwright/test';
+    export default defineConfig({ testDir: 'playwright', projects: [{ name: 'chromium-desktop', use: { ...devices['Desktop Chrome'] } }], reporter: [['list'], ['html', { outputFolder: 'reports/ui-e2e/html', open: 'never' }], ['json', { outputFile: 'reports/ui-e2e/report.json' }]], });
+    ```
+- Add env resolver (playwright/config/env.ts)
+  - Minimal reads `process.env` and exports `UI_E2E_BASE_URL` and sample credentials.
+- Add npm scripts (package.json)
+  - `"test:e2e": "playwright test --project=chromium-desktop"`
 
-Commands
-- Install browsers: `npm run test:e2e:install`
-- Smoke run (Chromium desktop): `npm run test:e2e:chrome:smoke`
-- Full suite: `npm run test:e2e`
-
-Validation
-- HTML report generated in `reports/ui-e2e/html` when tests run.
-- JSON report at `reports/ui-e2e/report.json` for CI analytics.
+Validate
+- Run: `npm run test:e2e` (should show 2 tests passing).
+- HTML report opens via: `npx playwright show-report` once tests exist.
 
 Deliverables
-- Your local environment can execute Playwright tests and open reports.
-
+- Playwright TS configured; ready to add first test in Lecture 03.
