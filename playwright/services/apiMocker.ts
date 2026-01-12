@@ -67,10 +67,14 @@ export class ApiMocker {
   private registrationRouteRegistered = false;
   private resetPasswordRouteRegistered = false;
   private avatarContent: Buffer | null = oneByOnePng;
+  private readonly enabled: boolean;
 
-  constructor(private readonly page: Page) {}
+  constructor(private readonly page: Page, options: { enabled?: boolean } = {}) {
+    this.enabled = options.enabled ?? (process.env.UI_E2E_USE_MOCKS !== 'false');
+  }
 
   async primeUserProfile(overrides: Partial<UserProfile> = {}): Promise<void> {
+    if (!this.enabled) return;
     this.user = {
       ...this.user,
       ...overrides,
@@ -82,6 +86,7 @@ export class ApiMocker {
   }
 
   async primeAvatar(): Promise<void> {
+    if (!this.enabled) return;
     if (this.avatarRouteRegistered) return;
 
     await this.registerRoute('**/users/me/avatar', async (route, request) => {
@@ -112,6 +117,7 @@ export class ApiMocker {
   }
 
   async primePosts(initialPosts: PostRecord[] = []): Promise<void> {
+    if (!this.enabled) return;
     this.posts = new Map(initialPosts.map((post) => [post.id, post]));
     if (!this.postsRouteRegistered) {
       await this.registerPostsRoutes();
@@ -120,6 +126,7 @@ export class ApiMocker {
   }
 
   async configureRegistration(response: Partial<ResponseConfig> = {}): Promise<void> {
+    if (!this.enabled) return;
     this.registrationResponse = {
       ...this.registrationResponse,
       ...response,
@@ -141,6 +148,7 @@ export class ApiMocker {
   }
 
   async configurePasswordReset(response: Partial<ResponseConfig> = {}): Promise<void> {
+    if (!this.enabled) return;
     this.resetPasswordResponse = {
       ...this.resetPasswordResponse,
       ...response,
@@ -162,6 +170,7 @@ export class ApiMocker {
   }
 
   async dispose(): Promise<void> {
+    if (!this.enabled) return;
     await Promise.all(this.cleanup.map((dispose) => dispose()));
     this.cleanup.length = 0;
     this.userRouteRegistered = false;
@@ -176,6 +185,7 @@ export class ApiMocker {
     url: string | RegExp,
     handler: (route: Route, request: Request) => Promise<void>,
   ): Promise<void> {
+    if (!this.enabled) return;
     await this.page.route(url, handler);
     this.cleanup.push(async () => this.page.unroute(url, handler));
   }

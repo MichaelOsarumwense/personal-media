@@ -14,9 +14,12 @@ type LoginResponse = {
 export class SessionManager {
   private readonly apiClient: ApiClient;
   private interceptors: Array<() => Promise<void>> = [];
+  private readonly enableLoginStubs: boolean;
 
   constructor(private readonly page: Page, private readonly request: APIRequestContext) {
     this.apiClient = new ApiClient(request, environment.apiBaseURL);
+    // Allow disabling UI login route stubs for real integration runs
+    this.enableLoginStubs = process.env.UI_E2E_STUB_LOGIN !== 'false';
   }
 
   async loginViaApi(
@@ -26,6 +29,7 @@ export class SessionManager {
   }
 
   async stubSuccessfulLogin(responseOverrides?: Partial<LoginResponse>): Promise<void> {
+    if (!this.enableLoginStubs) return;
     const token =
       responseOverrides?.token ??
       process.env.UI_E2E_FAKE_TOKEN ??
@@ -43,7 +47,8 @@ export class SessionManager {
     this.interceptors.push(async () => this.page.unroute('**/users/login', handler));
   }
 
-  async stubFailedLogin(errorMessage = 'Unable to login'): Promise<void> {
+  async stubFailedLogin(errorMessage = 'Username or Password Incorrect'): Promise<void> {
+    if (!this.enableLoginStubs) return;
     const handler = async (route: Route) => {
       await route.fulfill({
         status: 401,

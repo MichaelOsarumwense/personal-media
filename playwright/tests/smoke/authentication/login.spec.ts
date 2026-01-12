@@ -21,8 +21,8 @@ test.describe('Authentication', () => {
     await login.goto();
     await login.login(testUser);
 
-    await test.step('wait for redirect to home', async () => {
-      await page.waitForURL('**/', { waitUntil: 'domcontentloaded' });
+    await test.step('redirects to home', async () => {
+      await expect(page).toHaveURL(/\/$/);
     });
 
     await home.expectHeroBanner();
@@ -33,11 +33,13 @@ test.describe('Authentication', () => {
     const login = new LoginModel(page);
     const invalidUser = buildCredentials();
 
-    await session.stubFailedLogin('Invalid credentials');
+    // Parity with real backend copy: return the exact message
+    await session.stubFailedLogin();
     await login.goto();
     await login.login(invalidUser);
 
-    await expect(page.getByText('Invalid credentials')).toBeVisible();
+    // Exact copy parity with real backend/UI
+    await expect(page.getByText('Username or Password Incorrect').first()).toBeVisible();
     await expect(page).toHaveURL(/\/login$/);
   });
 });

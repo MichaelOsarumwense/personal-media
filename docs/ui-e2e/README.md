@@ -41,8 +41,33 @@ Run the most common workflows at the repository root:
 - `npm run test:e2e:smoke` – targeted execution for specs tagged with `@smoke`; ideal for PR gating.
 - `npm run test:e2e:debug` – headed mode with live inspector.
 - `npm run test:e2e:trace` – view a saved trace (`--trace on` or `retain-on-failure`).
+- `npm run test:e2e:report` – open the last HTML report (`reports/ui-e2e/html`).
 - `npm run test:e2e:codegen` – open the Playwright codegen recorder.
 - `npm run test:e2e:install` – install/update browsers (pin in CI bootstrap).
+
+Disable mocks (hybrid/real API mode):
+
+- Set `UI_E2E_USE_MOCKS=false` to bypass `ApiMocker` route stubs and hit the real backend.
+- Example: `UI_E2E_USE_MOCKS=false UI_E2E_BASE_URL=https://your-ui npm run test:e2e:smoke`
+
+Script presets:
+
+- Mocked UI-only (fastest, deterministic):
+  - `npm run test:e2e:mocked:smoke`
+  - `npm run test:e2e:mocked`
+  - `npm run test:e2e:mocked:all` (all configured browsers)
+- Real endpoints (no stubs):
+  - `npm run test:e2e:real:smoke`
+  - `npm run test:e2e:real`
+- Hybrid (UI login stubbed, hit real API for the rest):
+  - `npm run test:e2e:hybrid:smoke`
+  - `npm run test:e2e:hybrid`
+
+Environment requirements for real/hybrid:
+
+- `UI_E2E_BASE_URL` (UI origin) and optionally `UI_E2E_API_BASE_URL` if using `ApiClient`.
+- No static credentials needed: in real/hybrid mode, the fixture creates a fresh user via API (`POST /users`) and uses those credentials for the UI journey.
+- Ensure the backend allows user creation and cleanup is acceptable (users created per test run).
 
 Tag tests by appending `@smoke`, `@canary`, etc. to their title—CI matrix jobs can use `--grep` to focus on tags.
 
@@ -60,6 +85,12 @@ Local commits automatically execute `npx playwright test --project=chromium-desk
 | `UI_E2E_RUN_ID` | Inject custom run identifier | ISO timestamp |
 
 Additional per-environment overrides exist (e.g. `UI_E2E_STAGING_BASE_URL`). Populate these securely through your secrets manager rather than committing credentials.
+
+## Parity Policy (Mocks vs Real)
+
+- Assertions are identical across modes. Mocks must reproduce the real API contract and UI copy exactly (e.g. invalid login error: `Username or Password Incorrect`).
+- Prefer stubbing only what is needed and keep payload shapes/types aligned with backend responses.
+- Use `UI_E2E_USE_MOCKS=false` for real/hybrid to validate end-to-end without changing test expectations.
 
 ## Adding A New Journey
 

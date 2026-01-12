@@ -1,0 +1,106 @@
+Playwright Course + Framework Summary (Personal Media)
+
+Scope and Goals
+- SUT: this Personal Media React SPA (login/register/reset, protected routes, posts CRUD, profile/avatar, downloads page).
+- Course: 30 progressive lectures (5–12 minutes each) building a production‑style Playwright + TypeScript framework.
+- Delivery: dedicated branch `course` with incremental commits and tags per lecture (`lecture-01` … `lecture-30`).
+
+Framework Structure (playwright/)
+- config/
+  - env.ts: environment resolution, dotenv support, baseURL/apiBaseURL, default creds, runId.
+  - projects.ts: Playwright projects (Chromium desktop default; Firefox/WebKit variants included).
+- fixtures/
+  - test-fixtures.ts: custom fixtures (session, testUser, apiMock, runId, isCI). Creates fresh users via API in real/hybrid runs and cleans them up.
+- services/
+  - apiClient.ts: minimal typed API client using Playwright APIRequestContext.
+  - sessionManager.ts: UI login stubs (success/failure) and session reset.
+  - apiMocker.ts: route stubs for users, posts, avatar, registration, and reset password.
+- models/
+  - login.model.ts, home.model.ts: small screen models for reusable, readable test steps.
+- utils/
+  - testData.ts: deterministic builders for credentials, user profiles, and posts.
+- tests/
+  - smoke/authentication/login.spec.ts
+  - regression/authentication/{registration,reset-password}.spec.ts
+  - regression/posts/posts-crud.spec.ts
+  - regression/profile/profile-management.spec.ts
+  - regression/media/download.spec.ts
+- assets/
+  - 01.png for avatar upload (decoupled from src/).
+
+Top-Level Config
+- playwright.config.ts: testDir, reporters (HTML+JSON), output dirs, timeouts, workers, project list, artifact retention on failure, metadata (env + runId).
+
+Execution Modes & Toggles
+- Modes (scripts wire these):
+  - Mocked: UI‑only with network stubs (fast, deterministic).
+  - Real: UI + real API (no stubs).
+  - Hybrid: real API with only UI login stubbed.
+- Env toggles:
+  - UI_E2E_USE_MOCKS=true|false (default true): enable/disable `ApiMocker`.
+  - UI_E2E_STUB_LOGIN=true|false (default true): enable/disable login route stubs.
+- Independence: Framework imports nothing from app `src/`. Real/hybrid setup creates users via API; avatar upload uses `playwright/assets/01.png`.
+
+Mocking & Intercept Strategy (Parity‑First)
+- Mechanism: Playwright `page.route` with `route.fulfill` or `route.continue` (no HAR or MSW in E2E layer).
+- Endpoints stubbed (when mocks enabled):
+  - POST /users/login (success/failure). Failure copy exactly matches real UI: "Username or Password Incorrect".
+  - GET/PATCH/DELETE /users/me with in‑memory user profile.
+  - GET /posts returns an object keyed by id; POST creates; GET/PATCH/DELETE /posts/:id mutate in‑memory map.
+  - GET/POST/DELETE /users/me/avatar returns PNG bytes, toggles on upload, 404 on delete to simulate "no avatar".
+  - POST /users (registration) and PATCH /users/reset-password.
+- Parity policy: Assertions are identical across mocked and real runs; stubs mirror real API contract and UI copy.
+
+Reliability & Waits
+- Removed static waits; replaced with event‑driven waits:
+  - `page.waitForResponse` on POST/PATCH/DELETE endpoints.
+  - Download flows use `page.waitForEvent('download')`.
+  - Navigation and URL checks use `waitForURL`.
+- Avatar flows ensure an image exists before download/delete when running in real mode.
+
+Key Fixes During Iteration
+- Invalid credentials message unified to exact backend/UI copy: "Username or Password Incorrect" (mocks + tests updated).
+- Reset password test now sets `secret: 'reset-secret'` (fixtures align), waits for PATCH response, and asserts the full success toast text before redirect.
+- Profile update replaced static wait with button enabled + PATCH wait; improved reliability.
+- Real runs create a unique user via API, no static credentials; cleanup deletes the user after tests.
+- Scripts simplified and default to Chromium; added an all‑browsers mocked run.
+- Added a report opener script.
+
+Scripts (package.json)
+- test:e2e: runs Chromium default project.
+- test:e2e:smoke: tagged @smoke only (Chromium).
+- test:e2e:mocked / :mocked:smoke: mocked mode (Chromium).
+- test:e2e:mocked:all: mocked mode across all configured projects.
+- test:e2e:real / :real:smoke: real API, no stubs (Chromium).
+- test:e2e:hybrid / :hybrid:smoke: real API with login stubbed (Chromium).
+- test:e2e:debug: headed debug mode.
+- test:e2e:trace: open a saved trace.
+- test:e2e:report: open last HTML report (reports/ui-e2e/html).
+- test:e2e:install: install Playwright browsers.
+
+Docs & Lectures
+- docs/ui-e2e/README.md: parity policy, modes/toggles, scripts, artifacts.
+- course-outline/COURSE.md: execution modes/scripts and parity policy.
+- Updated lectures to match framework:
+  - Lecture 11 – Custom Fixtures 1 (real/hybrid user creation + cleanup; toggles).
+  - Lecture 12 – Environments + .env (env resolution, toggles, modes).
+  - Lecture 14 – Tagging, Retries, Timeouts, Workers.
+  - Lecture 15 – Session Manager (failure copy parity).
+  - Lecture 26 – CI with GitHub Actions (mocked smoke matrix; real mode variant).
+
+Branching & Tags
+- Long‑lived branch: `course`.
+- One‑commit‑per‑lecture and annotated tags `lecture-01` … `lecture-30` (script available at scripts/course-commit-and-tag.sh).
+- Recent commits also include parity fixes, reset‑password reliability, docs/lecture updates, and the report script.
+
+How to Run (quick ref)
+- Mocked fast: `npm run test:e2e:mocked` (Chromium) or `npm run test:e2e:mocked:all` (all browsers).
+- Real: `npm run test:e2e:real` with UI_E2E_BASE_URL (and UI_E2E_API_BASE_URL if needed). No static creds—fixtures create users.
+- Hybrid: `npm run test:e2e:hybrid`.
+- Reports: `npm run test:e2e:report`.
+
+Open Items / Next Steps
+- Validate multi‑browser mocked runs on your machine and review the HTML/trace artifacts.
+- Extend coverage (optional): accessibility smoke, visual baselines, quarantine tagging for flakes.
+- CI: wire matrices and artifact upload as outlined in Lecture 26.
+

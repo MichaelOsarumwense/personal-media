@@ -52,7 +52,7 @@ function LoginPage() {
   return (
     <div>
       <LoginLayout linkText={'Register'} linkRoute={'/register'}>
-        <div className="content-w3ls">
+        <div className="content-w3ls" data-testid="login-page">
           <div className="content-bottom">
             <LoginForm loginUser={loginHandler} />
             <LoaderComponent spinnerLoading={spinnerLoading} />
