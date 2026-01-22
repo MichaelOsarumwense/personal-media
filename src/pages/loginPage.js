@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import LoginLayout from '../components/layout/loginLayout';
 import LoaderComponent from '../components/loader/loader';
 import LoginForm from '../components/login/loginForm';
+import heroImage from '../components/layout/images/01.png';
 import { setToken } from '../utils/windowsHelper';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -54,6 +55,9 @@ function LoginPage() {
       <LoginLayout linkText={'Register'} linkRoute={'/register'}>
         <div className="content-w3ls" data-testid="login-page">
           <div className="content-bottom">
+            <div className="text-center" style={{ marginBottom: '12px' }}>
+              <img id="loginHero" src={heroImage} alt="Login Illustration" style={{ maxWidth: '120px' }} />
+            </div>
             <LoginForm loginUser={loginHandler} />
             <LoaderComponent spinnerLoading={spinnerLoading} />
             <div className="text-center icon">

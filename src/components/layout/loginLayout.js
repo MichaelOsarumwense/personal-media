@@ -9,7 +9,7 @@ function LoginLayout(props) {
 				<div className="bottom-grid">
 					<div className="logo">
 						<h1>
-							<Link id="logo" to="/">
+							<Link id="logo" to="/" title="Private Media">
 								Private Media
 							</Link>
 						</h1>
@@ -17,7 +17,7 @@ function LoginLayout(props) {
 					<div className="links">
 						<ul className="links-unordered-list">
 							<li className="active">
-								<Link id="register" to={props.linkRoute} className="">
+								<Link id="register" to={props.linkRoute} className="" title="Register">
 									{props.linkText}
 								</Link>
 							</li>

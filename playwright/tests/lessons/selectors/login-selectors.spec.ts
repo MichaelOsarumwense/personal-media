@@ -9,6 +9,8 @@ test.describe('Selectors – Login & Home', () => {
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
     await expect(page.getByPlaceholder('email')).toBeVisible();
     await expect(page.getByLabel('password')).toBeVisible();
+    await expect(page.getByTitle('Private Media')).toBeVisible();
+    await expect(page.getByAltText('Login Illustration')).toBeVisible();
     await expect(page.locator('#email')).toBeVisible();
     await expect(page.locator('#password')).toBeVisible();
     await expect(page.getByText('Reset Password?')).toBeVisible();
@@ -33,4 +35,3 @@ test.describe('Selectors – Login & Home', () => {
     await expect(page.getByText('Private Media').first()).toBeVisible();
   });
 });
-

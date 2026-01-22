@@ -26,9 +26,11 @@ test.describe('Selectors – Login & Home', () => {
     await expect(page.getByRole('link', { name: 'Private Media' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
 
-    // 3) Labels & placeholders
+    // 3) Labels & placeholders, title and alt text
     await expect(page.getByPlaceholder('email')).toBeVisible();
     await expect(page.getByLabel('password')).toBeVisible();
+    await expect(page.getByTitle('Private Media')).toBeVisible();
+    await expect(page.getByAltText('Login Illustration')).toBeVisible();
 
     // 4) IDs
     await expect(page.locator('#email')).toBeVisible();
@@ -60,9 +62,27 @@ test.describe('Selectors – Login & Home', () => {
     // Brand text
     await expect(page.getByText('Private Media').first()).toBeVisible();
 
+    // 7) Alt text (images)
+    await expect(page.getByAltText('Avatar').first()).toBeVisible();
+
     // Responsive assertions: presence of either menu or hero copy
     // (See HomeModel for viewport-sensitive checks.)
   });
+});
+```
+
+Attribute Selection and Retrieval
+```ts
+// Attribute selectors and reading attributes
+test('attribute selectors and retrieval', async ({ page }) => {
+  await page.goto('/login');
+
+  // CSS attribute selector
+  await expect(page.locator('[title="Private Media"]').first()).toBeVisible();
+
+  // Read an attribute value (useful in edge cases)
+  const placeholder = await page.getAttribute('#email', 'placeholder');
+  expect(placeholder).toBe('email');
 });
 ```
 
