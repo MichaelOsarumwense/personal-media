@@ -21,8 +21,8 @@ function LoginForm(props) {
 
 	return (
 		<form onSubmit={submitHandler}>
-			<label className="label" htmlFor="username">
-				username
+			<label className="label" htmlFor="email">
+				email
 			</label>
 			<div className="field-group required">
 				<span className="fa fa-envelope" aria-hidden="true" />
