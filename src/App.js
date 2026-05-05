@@ -6,6 +6,7 @@ import ResetPasswordPage from './pages/resetPasswordPage';
 import UpdateUserPage from './pages/updateUserPage';
 import ProtectedRoute from './components/protectedRoute/protectedRoute';
 import EditPostPage from './pages/editPostPage';
+import PlaywrightActionsPage from './pages/playwrightActionsPage';
 
 import './index.css';
 import DownloadPage from './pages/downloadPage';
@@ -18,6 +19,7 @@ function App() {
       <ProtectedRoute path="/" component={HomePage} exact />
       <Route path="/login" component={LoginPage} />
       <Route path="/downloads" component={DownloadPage} />
+      <Route path="/playwright-actions" component={PlaywrightActionsPage} />
       <Route path="/register" component={RegisterPage} />
       <Route path="/reset-password" component={ResetPasswordPage} />
       <ProtectedRoute path="/update-user" component={UpdateUserPage} />

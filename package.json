@@ -19,7 +19,6 @@
     "react-toastify": "^9.1.3",
     "web-vitals": "^1.1.0"
   },
-  
   "engines": {
     "node": "20.11.1",
     "npm": "10.2.4"
@@ -30,20 +29,6 @@
     "test": "react-scripts test --maxWorkers=1",
     "test:unit": "react-scripts test --runInBand",
     "test:unit:ci": "react-scripts test --watchAll false --ci --runInBand",
-    "test:e2e": "playwright test --project=chromium-desktop",
-    "test:e2e:smoke": "playwright test --project=chromium-desktop --grep @smoke",
-    "test:e2e:mocked": "cross-env UI_E2E_USE_MOCKS=true UI_E2E_STUB_LOGIN=true playwright test --project=chromium-desktop",
-    "test:e2e:mocked:smoke": "cross-env UI_E2E_USE_MOCKS=true UI_E2E_STUB_LOGIN=true playwright test --project=chromium-desktop --grep @smoke",
-    "test:e2e:mocked:all": "cross-env UI_E2E_USE_MOCKS=true UI_E2E_STUB_LOGIN=true playwright test",
-    "test:e2e:real": "cross-env UI_E2E_USE_MOCKS=false UI_E2E_STUB_LOGIN=false playwright test --project=chromium-desktop",
-    "test:e2e:real:smoke": "cross-env UI_E2E_USE_MOCKS=false UI_E2E_STUB_LOGIN=false playwright test --project=chromium-desktop --grep @smoke",
-    "test:e2e:hybrid": "cross-env UI_E2E_USE_MOCKS=false UI_E2E_STUB_LOGIN=true playwright test --project=chromium-desktop",
-    "test:e2e:hybrid:smoke": "cross-env UI_E2E_USE_MOCKS=false UI_E2E_STUB_LOGIN=true playwright test --project=chromium-desktop --grep @smoke",
-    "test:e2e:debug": "playwright test --project=chromium-desktop --debug",
-    "test:e2e:trace": "playwright show-trace",
-    "test:e2e:report": "playwright show-report reports/ui-e2e/html",
-    "test:e2e:codegen": "playwright codegen",
-    "test:e2e:install": "playwright install --with-deps",
     "prepare": "husky",
     "eject": "react-scripts eject"
   },
@@ -67,7 +52,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@playwright/test": "^1.56.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "husky": "^9.1.7",
